@@ -1,0 +1,104 @@
+<!--subpackage_forum/topic-detail/topic-detail.wxml-->
+<view class="page" wx:if="{{!loading && topic}}">
+  <!-- 话题内容区 -->
+  <view class="topic-header">
+    <view class="author-info">
+      <image class="author-avatar" src="{{topic.avatarUrl || '/images/red_base.png'}}" mode="aspectFill"></image>
+      <view class="author-detail">
+        <view class="author-name">{{topic.nickname}}</view>
+        <view class="author-tag author-badge" wx:if="{{isAuthor}}">作者</view>
+        <view class="post-time">{{topic.createTimeStr}}</view>
+      </view>
+      <view class="more-btn" wx:if="{{isAuthor}}" bindtap="showMenu">
+        <text>···</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 正文 -->
+  <view class="topic-content">
+    <text class="content-text">{{topic.content}}</text>
+    <view class="topic-tag" wx:if="{{topic.topicTag}}">#{{topic.topicTag}}</view>
+  </view>
+
+  <!-- 图片 -->
+  <view class="topic-images" wx:if="{{topic.images && topic.images.length > 0}}">
+    <view class="images-grid images-single" wx:if="{{topic.images.length === 1}}">
+      <image class="grid-image single" src="{{topic.images[0]}}" mode="widthFix"
+             bindtap="previewImage" data-url="{{topic.images[0]}}" data-urls="{{topic.images}}" lazy-load></image>
+    </view>
+    <view class="images-grid images-multi" wx:elif="{{topic.images.length > 1}}">
+      <image class="grid-image" wx:for="{{topic.images}}" wx:key="*this"
+             src="{{item}}" mode="aspectFill"
+             bindtap="previewImage" data-url="{{item}}" data-urls="{{topic.images}}" lazy-load></image>
+    </view>
+  </view>
+
+  <!-- 互动栏 -->
+  <view class="action-bar">
+    <view class="action-item" bindtap="likeTopic">
+      <text class="action-icon">{{isLiked ? '❤️' : '🤍'}}</text>
+      <text class="action-text">{{topic.likes || 0}}</text>
+    </view>
+    <view class="action-item">
+      <text class="action-icon">💬</text>
+      <text class="action-text">{{topic.commentsCount || 0}}</text>
+    </view>
+    <view class="action-item">
+      <text class="action-icon">👁️</text>
+      <text class="action-text">{{topic.views || 0}}</text>
+    </view>
+    <view class="action-item" bindtap="onShareAppMessage">
+      <button class="share-btn" open-type="share">
+        <text class="action-icon">📤</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 分割线 -->
+  <view class="divider"></view>
+
+  <!-- 评论区标题 -->
+  <view class="comments-header">
+    <text class="comments-title">评论 ({{comments.length}})</text>
+  </view>
+
+  <!-- 评论列表 -->
+  <view class="comments-list">
+    <view class="comment-item" wx:for="{{comments}}" wx:key="_id">
+      <view class="comment-main">
+        <image class="comment-avatar" src="{{item.avatarUrl || '/images/red_base.png'}}" mode="aspectFill"></image>
+        <view class="comment-body">
+          <view class="comment-top">
+            <text class="comment-name">{{item.nickname}}</text>
+            <view class="author-badge mini" wx:if="{{item.isAuthor}}">作者</view>
+            <view class="comment-delete" wx:if="{{userInfo && item.userId === userInfo.userId}}" bindtap="deleteComment" data-id="{{item._id}}">
+              <text>删除</text>
+            </view>
+          </view>
+          <text class="comment-text">{{item.content}}</text>
+          <text class="comment-time">{{item.createTimeStr}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 无评论 -->
+    <view class="no-comments" wx:if="{{comments.length === 0}}">
+      <text>暂无评论，快来抢沙发吧~</text>
+    </view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading-page" wx:if="{{loading}}">
+  <text>加载中...</text>
+</view>
+
+<!-- 底部评论输入框 -->
+<view class="comment-bar" wx:if="{{!loading && topic}}">
+  <input class="comment-input" placeholder="写评论..." value="{{commentText}}"
+         bindinput="onCommentInput" confirm-type="send" bindconfirm="submitComment" maxlength="500" />
+  <view class="comment-send {{commentText.trim() ? 'active' : ''}}" bindtap="submitComment">
+    <text>发送</text>
+  </view>
+</view>

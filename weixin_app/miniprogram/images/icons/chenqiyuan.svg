@@ -1,0 +1,13 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs><linearGradient id="bg_cqy" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C0392B"/><stop offset="100%" style="stop-color:#E74C3C"/></linearGradient></defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg_cqy)"/>
+  <circle cx="60" cy="36" r="17" fill="#FDFBD0"/>
+  <path d="M43 30 Q48 18 60 15 Q73 18 77 30 Q75 21 60 19 Q45 21 43 30Z" fill="#333"/>
+  <path d="M38 54 Q38 50 44 48 L54 46 Q60 44 66 46 L76 48 Q82 50 82 54 L78 100 Q60 105 40 100Z" fill="#78281F"/>
+  <!-- 宸ュ巶鐑熷洷 -->
+  <rect x="25" y="65" width="10" height="25" rx="1" fill="#F5F5DC"/>
+  <path d="M27 65 L27 58 L33 52 L33 65" fill="#F5F5DC"/>
+  <path d="M29 52 Q31 46 33 50" fill="none" stroke="#aaa" stroke-width="1"/>
+  <path d="M32 48 Q34 42 36 46" fill="none" stroke="#aaa" stroke-width="1"/>
+  <circle cx="52" cy="33" r="2" fill="#333"/><circle cx="68" cy="33" r="2" fill="#333"/>
+</svg>

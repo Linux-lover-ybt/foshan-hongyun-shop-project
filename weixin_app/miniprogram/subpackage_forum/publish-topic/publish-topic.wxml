@@ -1,0 +1,90 @@
+<!--subpackage_forum/publish-topic/publish-topic.wxml-->
+<view class="page">
+  <!-- 选择栏目分类 -->
+  <view class="section tag-section">
+    <view class="section-header">
+      <text class="section-label">选择栏目</text>
+    </view>
+    <view class="tag-selector" bindtap="toggleTagPicker">
+      <text class="tag-value">#{{topicTag}}</text>
+      <text class="tag-arrow">▼</text>
+    </view>
+    <view class="tag-picker" wx:if="{{showTagPicker}}">
+      <view class="tag-grid">
+        <view class="picker-tag {{topicTag === item ? 'active' : ''}}"
+              wx:for="{{tags}}" wx:key="*this"
+              bindtap="selectTag" data-tag="{{item}}">
+          #{{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ====== 话题模式 ====== -->
+  <block wx:if="{{mode !== 'video'}}">
+    <view class="section content-section">
+      <textarea class="content-input"
+                placeholder="分享你的红色文化心得、故事..."
+                value="{{content}}"
+                bindinput="onContentInput"
+                maxlength="2000"
+                auto-height="{{true}}"
+                show-confirm-bar="{{false}}"></textarea>
+      <view class="content-count">{{content.length}}/2000</view>
+    </view>
+    <view class="section image-section">
+      <view class="image-grid">
+        <view class="image-item" wx:for="{{images}}" wx:key="*this">
+          <image class="preview-img" src="{{item}}" mode="aspectFill"
+                 bindtap="previewImage" data-url="{{item}}" lazy-load></image>
+          <view class="image-remove" bindtap="removeImage" data-index="{{index}}">
+            <text>✕</text>
+          </view>
+        </view>
+        <view class="image-add" wx:if="{{images.length < maxImages}}" bindtap="chooseImage">
+          <text class="add-icon">+</text>
+          <text class="add-text">{{images.length}}/{{maxImages}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- ====== 视频模式 ====== -->
+  <block wx:if="{{mode === 'video'}}">
+    <view class="section content-section">
+      <input class="video-title-input"
+             placeholder="输入视频标题"
+             value="{{videoTitle}}"
+             bindinput="onVideoTitleInput"
+             maxlength="50" />
+    </view>
+    <view class="section content-section">
+      <textarea class="content-input"
+                placeholder="输入视频描述..."
+                value="{{content}}"
+                bindinput="onContentInput"
+                maxlength="500"
+                auto-height="{{true}}"
+                show-confirm-bar="{{false}}"></textarea>
+    </view>
+    <view class="section image-section">
+      <view class="video-upload-area" wx:if="{{!videoTempPath}}" bindtap="chooseVideo">
+        <text class="add-icon">🎬</text>
+        <text class="add-text">选择视频</text>
+      </view>
+      <view class="video-preview-wrapper" wx:else>
+        <video class="video-preview-player" src="{{videoTempPath}}" controls></video>
+        <view class="video-remove-btn" bindtap="removeVideo">
+          <text>✕ 移除视频</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 底部发布按钮 -->
+  <view class="bottom-bar">
+    <view class="publish-btn {{submitting ? 'disabled' : ''}}" bindtap="submitContent">
+      <text>{{submitting ? '发布中...' : (mode === 'video' ? '上传视频' : '发布话题')}}</text>
+    </view>
+  </view>
+</view>

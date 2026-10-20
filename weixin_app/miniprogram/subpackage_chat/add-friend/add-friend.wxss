@@ -1,0 +1,35 @@
+page { background: #ededed; }
+.search-section { padding: 20rpx 24rpx; background: #ededed; }
+.search-box {
+  background: #fff;
+  border-radius: 8rpx;
+  padding: 14rpx 20rpx;
+  display: flex; align-items: center;
+}
+.search-input { flex: 1; margin-left: 12rpx; font-size: 28rpx; color: #333; }
+.search-btn { color: #07c160; font-size: 28rpx; margin-left: 16rpx; flex-shrink: 0; }
+
+.result-list { background: #fff; }
+.result-item {
+  display: flex; align-items: center;
+  padding: 24rpx 28rpx; border-bottom: 1rpx solid #f0f0f0;
+}
+.result-avatar { width: 88rpx; height: 88rpx; border-radius: 12rpx; margin-right: 24rpx; }
+.result-info { flex: 1; }
+.result-name { font-size: 30rpx; color: #333; display: block; }
+.result-uid { font-size: 24rpx; color: #07c160; display: block; margin-top: 4rpx; }
+
+.status-badge {
+  font-size: 26rpx; padding: 8rpx 24rpx; border-radius: 8rpx; flex-shrink: 0;
+}
+.status-badge.friend { color: #999; }
+.status-badge.pending { color: #ff9800; }
+
+.add-btn {
+  background: #07c160; color: #fff;
+  padding: 10rpx 32rpx; border-radius: 8rpx;
+  font-size: 26rpx; flex-shrink: 0;
+}
+.empty-state, .default-tip { text-align: center; padding-top: 200rpx; color: #999; font-size: 28rpx; }
+.tip-icon { width: 160rpx; height: 160rpx; border-radius: 50%; margin-bottom: 20rpx; opacity: 0.5; display: block; margin-left: auto; margin-right: auto; }
+.tip-text { display: block; color: #bbb; }

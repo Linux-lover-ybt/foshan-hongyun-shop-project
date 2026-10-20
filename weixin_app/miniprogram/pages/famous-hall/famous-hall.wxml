@@ -1,0 +1,141 @@
+<view class="page">
+  <!-- 头部背景区 -->
+  <view class="header-section">
+    <image class="header-bg" src="/images/background.jpg" mode="aspectFill"></image>
+    <view class="header-overlay">
+      <view class="header-title-wrap">
+        <text class="header-badge">佛山</text>
+        <text class="header-title">名人堂</text>
+      </view>
+      <text class="header-subtitle">传承岭南文化 · 致敬历史伟人</text>
+    </view>
+  </view>
+
+  <!-- MBTI测试入口 -->
+  <view class="mbti-banner" bindtap="startMbtiTest">
+    <view class="mbti-banner-left">
+      <text class="mbti-banner-icon">🧠</text>
+      <view class="mbti-banner-text">
+        <text class="mbti-banner-title">MBTI 性格测试</text>
+        <text class="mbti-banner-desc">测测你是哪位佛山名人？</text>
+      </view>
+    </view>
+    <view class="mbti-banner-arrow">
+      <text class="mbti-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 名人列表 -->
+  <scroll-view class="figure-list" scroll-y enhanced show-scrollbar="{{false}}">
+    <block wx:for="{{figures}}" wx:key="id">
+      <view class="figure-card" bindtap="onFigureTap" data-id="{{item.id}}">
+        <view class="card-top" style="--accent: {{item.color}};">
+          <view class="figure-icon-lg" style="background: {{item.bg}}; border: 3rpx solid {{item.color}};">
+            <image class="figure-icon-img" src="{{icons[item.iconKey]}}" mode="aspectFit"/>
+          </view>
+          <view class="figure-basic">
+            <view class="figure-name-row">
+              <text class="figure-name">{{item.name}}</text>
+              <text class="mbti-tag">{{item.mbti}}</text>
+            </view>
+            <text class="figure-tag" style="color: {{item.color}}; background: {{item.bg}}; border-color: {{item.color}}20;">{{item.tag}}</text>
+          </view>
+        </view>
+        <view class="figure-content">
+          <view class="info-row">
+            <text class="info-label">年代</text>
+            <text class="info-value">{{item.era}}</text>
+          </view>
+          <view class="info-row">
+            <text class="info-label">籍贯</text>
+            <text class="info-value">{{item.place}}</text>
+          </view>
+          <view class="info-desc">
+            {{item.desc}}
+          </view>
+          <view class="figure-achievements">
+            <view class="achievement-tag" style="color: {{item.color}}; background: {{item.color}}08; border-color: {{item.color}}25;"
+                  wx:for="{{item.achievements}}" wx:key="*this">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 详情弹窗遮罩 -->
+  <view class="detail-mask" wx:if="{{showDetail}}" bindtap="onCloseDetail"></view>
+
+  <!-- 详情弹窗 -->
+  <view class="detail-popup {{showDetail ? 'show' : ''}}" wx:if="{{showDetail && currentFigure}}">
+    <!-- 弹窗头部 -->
+    <view class="detail-header" style="background: linear-gradient(135deg, {{currentFigure.color}}, {{currentFigure.color}}dd);">
+      <view class="detail-close" bindtap="onCloseDetail">
+        <text>✕</text>
+      </view>
+      <view class="detail-header-content">
+        <view class="detail-icon-wrap" style="background: {{currentFigure.bg}};">
+          <image class="detail-icon-img" src="{{currentFigure.icon}}" mode="aspectFit"/>
+        </view>
+        <text class="detail-name">{{currentFigure.name}}</text>
+        <view class="detail-tags">
+          <text class="detail-mbti">{{currentFigure.mbti}}</text>
+          <text class="detail-tag" style="background: rgba(255,255,255,0.2);">{{currentFigure.tag}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 弹窗内容 -->
+    <scroll-view class="detail-body" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- 基本信息 -->
+      <view class="detail-section">
+        <text class="section-title">基本信息</text>
+        <view class="detail-info-grid">
+          <view class="detail-info-item">
+            <text class="detail-info-label">年代</text>
+            <text class="detail-info-value">{{currentFigure.era}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">籍贯</text>
+            <text class="detail-info-value">{{currentFigure.place}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">MBTI</text>
+            <text class="detail-info-value" style="color: {{currentFigure.color}};">{{currentFigure.mbti}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 详细简介 -->
+      <view class="detail-section">
+        <text class="section-title">人物简介</text>
+        <view class="detail-desc-box">
+          <text class="detail-full-desc">{{currentFigure.desc}}</text>
+        </view>
+      </view>
+
+      <!-- 特质标签 -->
+      <view class="detail-section">
+        <text class="section-title">性格特质</text>
+        <view class="detail-traits">
+          <text class="trait-pill" style="border-color: {{currentFigure.color}}; color: {{currentFigure.color}};"
+                wx:for="{{currentFigure.traits}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- 主要成就 -->
+      <view class="detail-section">
+        <text class="section-title">主要成就</text>
+        <view class="detail-achieve-list">
+          <view class="achieve-item" wx:for="{{currentFigure.achievements}}" wx:key="*this"
+                style="border-left-color: {{currentFigure.color}};">
+            <text class="achieve-dot" style="background: {{currentFigure.color}};"></text>
+            <text class="achieve-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 底部占位 -->
+      <view class="detail-bottom-space"></view>
+    </scroll-view>
+  </view>
+</view>

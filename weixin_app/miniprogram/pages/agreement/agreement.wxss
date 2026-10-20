@@ -1,0 +1,54 @@
+/* pages/agreement/agreement.wxss */
+.container {
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx;
+  height: 88rpx;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #e0e0e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.close {
+  font-size: 48rpx;
+  color: #999999;
+  line-height: 88rpx;
+}
+
+.content {
+  padding: 110rpx 20rpx 20rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+  color: #333333;
+}
+
+.section {
+  margin-bottom: 40rpx;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.section-content {
+  text-align: justify;
+  color: #666666;
+}

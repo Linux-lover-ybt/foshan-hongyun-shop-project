@@ -1,0 +1,151 @@
+<!--pages/red-base/red-base.wxml-->
+<view class="page">
+  <!-- 顶部标题栏 -->
+  <view class="header">
+    <view class="header-left">
+      <text class="header-title">热门话题</text>
+    </view>
+    <view class="header-right">
+      <view class="points-badge">{{userPoints}} 积分</view>
+    </view>
+  </view>
+
+  <!-- 话题/视频 切换 Tab -->
+  <view class="main-tabs">
+    <view class="main-tab {{activeTab === 'topic' ? 'active' : ''}}" bindtap="switchTab" data-tab="topic">
+      <text>话题</text>
+    </view>
+    <view class="main-tab {{activeTab === 'video' ? 'active' : ''}}" bindtap="switchTab" data-tab="video">
+      <text>视频</text>
+    </view>
+  </view>
+
+  <!-- 栏目分类标签横向滚动 -->
+  <scroll-view class="tags-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="tags-inner">
+      <view class="tag-item {{activeCategory === item ? 'active' : ''}}"
+            wx:for="{{categories}}" wx:key="*this"
+            bindtap="switchCategory" data-cat="{{item}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 排序栏 -->
+  <view class="sort-bar">
+    <view class="sort-btn {{(activeTab === 'topic' ? topicSortType : videoSortType) === 'latest' ? 'active' : ''}}"
+          bindtap="switchSort" data-tab="{{activeTab}}" data-sort="latest">最新</view>
+    <view class="sort-btn {{(activeTab === 'topic' ? topicSortType : videoSortType) === 'hot' ? 'active' : ''}}"
+          bindtap="switchSort" data-tab="{{activeTab}}" data-sort="hot">最热</view>
+  </view>
+
+  <!-- ========== 话题列表（瀑布流） ========== -->
+  <block wx:if="{{activeTab === 'topic'}}">
+    <view class="waterfall">
+      <!-- 左列 -->
+      <view class="waterfall-col">
+        <view class="topic-card" wx:for="{{topics}}" wx:if="{{index % 2 === 0}}" wx:key="_id"
+              bindtap="goToDetail" data-id="{{item._id}}">
+          <view class="card-cover" wx:if="{{item.images && item.images.length > 0}}"
+                bindtap="previewImage" data-url="{{item.images[0]}}" data-urls="{{item.images}}">
+            <image class="cover-image" src="{{item.images[0]}}" mode="widthFix" lazy-load></image>
+            <view class="cover-count" wx:if="{{item.images.length > 1}}">
+              <text>{{item.images.length}}图</text>
+            </view>
+          </view>
+          <view class="card-body">
+            <view class="card-content">{{item.content}}</view>
+            <view class="card-tag" wx:if="{{item.topicTag}}">#{{item.topicTag}}</view>
+          </view>
+          <view class="card-footer">
+            <view class="card-author">
+              <image class="author-avatar" src="{{item.avatarUrl || '/images/red_base.png'}}" mode="aspectFill"></image>
+              <text class="author-name">{{item.nickname}}</text>
+            </view>
+            <view class="card-like {{item.isLiked ? 'liked' : ''}}" catchtap="likeTopic" data-index="{{index}}" data-id="{{item._id}}">
+              <text class="like-icon">{{item.isLiked ? '❤️' : '🤍'}}</text>
+              <text class="like-count">{{item.likes || 0}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 右列 -->
+      <view class="waterfall-col">
+        <view class="topic-card" wx:for="{{topics}}" wx:if="{{index % 2 === 1}}" wx:key="_id"
+              bindtap="goToDetail" data-id="{{item._id}}">
+          <view class="card-cover" wx:if="{{item.images && item.images.length > 0}}"
+                bindtap="previewImage" data-url="{{item.images[0]}}" data-urls="{{item.images}}">
+            <image class="cover-image" src="{{item.images[0]}}" mode="widthFix" lazy-load></image>
+            <view class="cover-count" wx:if="{{item.images.length > 1}}">
+              <text>{{item.images.length}}图</text>
+            </view>
+          </view>
+          <view class="card-body">
+            <view class="card-content">{{item.content}}</view>
+            <view class="card-tag" wx:if="{{item.topicTag}}">#{{item.topicTag}}</view>
+          </view>
+          <view class="card-footer">
+            <view class="card-author">
+              <image class="author-avatar" src="{{item.avatarUrl || '/images/red_base.png'}}" mode="aspectFill"></image>
+              <text class="author-name">{{item.nickname}}</text>
+            </view>
+            <view class="card-like {{item.isLiked ? 'liked' : ''}}" catchtap="likeTopic" data-index="{{index}}" data-id="{{item._id}}">
+              <text class="like-icon">{{item.isLiked ? '❤️' : '🤍'}}</text>
+              <text class="like-count">{{item.likes || 0}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 话题空状态 -->
+    <view class="empty-state" wx:if="{{topics.length === 0 && !loading}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无话题</text>
+      <text class="empty-tip">快来发布第一个话题吧</text>
+    </view>
+  </block>
+
+  <!-- ========== 视频列表 ========== -->
+  <block wx:if="{{activeTab === 'video'}}">
+    <view class="video-list">
+      <view class="video-item" wx:for="{{videos}}" wx:key="_id">
+        <view class="video-cover" bindtap="watchVideo" data-index="{{index}}">
+          <image class="video-cover-img" src="{{item.fileID}}" mode="aspectFill"></image>
+          <view class="video-play-icon">
+            <text class="play-btn">▶</text>
+          </view>
+          <view class="video-views">
+            <text>{{item.views || 0}}次观看</text>
+          </view>
+        </view>
+        <view class="video-info" bindtap="watchVideo" data-index="{{index}}">
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-desc">{{item.description}}</view>
+          <view class="video-meta">
+            <text class="meta-category" wx:if="{{item.category}}">#{{item.category}}</text>
+            <text class="meta-time">{{item.createTimeStr}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 视频空状态 -->
+    <view class="empty-state" wx:if="{{videos.length === 0 && !loading}}">
+      <text class="empty-icon">🎬</text>
+      <text class="empty-text">暂无视频</text>
+      <text class="empty-tip">快来上传第一个视频吧</text>
+    </view>
+  </block>
+
+  <!-- 加载状态 -->
+  <view class="load-more" wx:if="{{loadMoreVisible}}">
+    <text wx:if="{{loading}}">加载中...</text>
+    <text wx:elif="{{activeTab === 'topic' ? !topicHasMore : !videoHasMore}}">— 已经到底了 —</text>
+  </view>
+
+  <!-- 浮动发布按钮 -->
+  <view class="fab-publish" bindtap="goToPublish">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

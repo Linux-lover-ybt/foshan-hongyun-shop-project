@@ -1,0 +1,125 @@
+<view class="page">
+  <!-- 进度条 -->
+  <view class="progress-bar-wrap">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <text class="progress-text">{{currentIndex + 1}} / {{questions.length}}</text>
+  </view>
+
+  <!-- 题目区域 -->
+  <view class="question-area" wx:if="{{!showResult}}">
+    <!-- 维度标签 -->
+    <view class="dimension-tag">{{currentDimension}}</view>
+
+    <!-- 题目文字 -->
+    <view class="question-text">{{currentQuestion.text}}</view>
+
+    <!-- 选项区域 -->
+    <view class="options-area">
+      <view class="option-row" wx:for="{{options}}" wx:key="value">
+        <view class="option-item {{selectedValue === item.value ? 'selected' : ''}}"
+              bindtap="selectOption" data-value="{{item.value}}">
+          <view class="option-circle">
+            <view class="option-dot" wx:if="{{selectedValue === item.value}}"></view>
+          </view>
+          <text class="option-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 下一题按钮 -->
+    <view class="btn-area">
+      <view class="btn-next {{selectedValue ? '' : 'disabled'}}" bindtap="nextQuestion">
+        {{currentIndex === questions.length - 1 ? '查看结果' : '下一题'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 结果区域 -->
+  <view class="result-area" wx:if="{{showResult}}">
+    <!-- MBTI类型大展示 -->
+    <view class="result-type-card">
+      <text class="result-type-label">你的MBTI类型</text>
+      <text class="result-type">{{mbtiType}}</text>
+      <text class="result-type-name">{{mbtiName}}</text>
+    </view>
+
+    <!-- 四维度进度条 -->
+    <view class="dimensions-card">
+      <view class="dim-item">
+        <view class="dim-labels">
+          <text class="dim-label dim-label-l {{dimensions.EI.type === 'E' ? 'active' : ''}}">E 外向</text>
+          <text class="dim-label dim-label-r {{dimensions.EI.type === 'I' ? 'active' : ''}}">I 内向</text>
+        </view>
+        <view class="dim-bar">
+          <view class="dim-fill dim-fill-e" style="width: {{dimensions.EI.percent}}%"></view>
+          <view class="dim-fill dim-fill-i" style="width: {{100 - dimensions.EI.percent}}%"></view>
+        </view>
+        <text class="dim-score">{{dimensions.EI.score}} / 30</text>
+      </view>
+
+      <view class="dim-item">
+        <view class="dim-labels">
+          <text class="dim-label dim-label-l {{dimensions.SN.type === 'S' ? 'active' : ''}}">S 实感</text>
+          <text class="dim-label dim-label-r {{dimensions.SN.type === 'N' ? 'active' : ''}}">N 直觉</text>
+        </view>
+        <view class="dim-bar">
+          <view class="dim-fill dim-fill-s" style="width: {{dimensions.SN.percent}}%"></view>
+          <view class="dim-fill dim-fill-n" style="width: {{100 - dimensions.SN.percent}}%"></view>
+        </view>
+        <text class="dim-score">{{dimensions.SN.score}} / 30</text>
+      </view>
+
+      <view class="dim-item">
+        <view class="dim-labels">
+          <text class="dim-label dim-label-l {{dimensions.TF.type === 'T' ? 'active' : ''}}">T 理性</text>
+          <text class="dim-label dim-label-r {{dimensions.TF.type === 'F' ? 'active' : ''}}">F 感性</text>
+        </view>
+        <view class="dim-bar">
+          <view class="dim-fill dim-fill-t" style="width: {{dimensions.TF.percent}}%"></view>
+          <view class="dim-fill dim-fill-f" style="width: {{100 - dimensions.TF.percent}}%"></view>
+        </view>
+        <text class="dim-score">{{dimensions.TF.score}} / 30</text>
+      </view>
+
+      <view class="dim-item">
+        <view class="dim-labels">
+          <text class="dim-label dim-label-l {{dimensions.JP.type === 'J' ? 'active' : ''}}">J 计划</text>
+          <text class="dim-label dim-label-r {{dimensions.JP.type === 'P' ? 'active' : ''}}">P 随性</text>
+        </view>
+        <view class="dim-bar">
+          <view class="dim-fill dim-fill-j" style="width: {{dimensions.JP.percent}}%"></view>
+          <view class="dim-fill dim-fill-p" style="width: {{100 - dimensions.JP.percent}}%"></view>
+        </view>
+        <text class="dim-score">{{dimensions.JP.score}} / 35</text>
+      </view>
+    </view>
+
+    <!-- 对应佛山名人 -->
+    <view class="figure-match-card">
+      <view class="match-header">
+        <text class="match-icon">★</text>
+        <text class="match-title">你对应的佛山名人</text>
+      </view>
+      <view class="match-figure">
+        <view class="match-figure-icon" style="background: {{matchedFigure.bg}};">
+          <image class="match-figure-img" src="{{matchedFigure.icon}}" mode="aspectFit"/>
+        </view>
+        <view class="match-figure-info">
+          <text class="match-figure-name">{{matchedFigure.name}}</text>
+          <text class="match-figure-desc">{{matchedFigure.desc}}</text>
+        </view>
+      </view>
+      <view class="match-traits">
+        <view class="trait-tag" wx:for="{{matchedFigure.traits}}" wx:key="*this">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="result-btns">
+      <view class="btn-retest" bindtap="retest">重新测试</view>
+      <view class="btn-back" bindtap="goBack">返回名人堂</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,524 @@
+/**mine.wxss**/
+
+page {
+  background-color: #f6f6f6;
+  /* height: 100vh; */ /* <-- 已移除此行，解决无法滑动的问题 */
+}
+
+.container {
+  font-family: PingFang SC;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f6f6f6;
+}
+
+/*用户信息区域*/
+.user-info-section {
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  padding: 60rpx 20rpx; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-info-top-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.user-info-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30rpx;
+  /* 核心：给用户信息添加左侧外边距，实现整体右移，数值越大右移越多 */
+  margin-left: 20rpx; 
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 4rpx solid #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* UID 显示行 */
+.user-uid-row {
+  display: flex;
+  align-items: center;
+  margin-top: 6rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16rpx;
+  padding: 4rpx 16rpx;
+  width: fit-content;
+}
+
+.user-uid-text {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.user-uid-copy {
+  font-size: 20rpx;
+  color: #fff;
+  margin-left: 12rpx;
+  padding: 2rpx 10rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8rpx;
+}
+
+/* 名字 + MBTI 纵向容器 */
+.user-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 用户信息区内的 MBTI + 名人行 */
+.user-mbti-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+}
+
+.user-mbti-tag {
+  display: inline-block;
+  font-size: 20rpx;
+  font-weight: 700;
+  color: #fff;
+  padding: 2rpx 14rpx;
+  border-radius: 6rpx;
+  letter-spacing: 1rpx;
+}
+
+.user-mbti-figure {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.9);
+  margin-left: 10rpx;
+}
+
+.logout-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 15rpx 25rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12rpx;
+  /* 核心：给退出按钮添加右侧外边距，实现整体左移，数值越大左移越多 */
+  margin-right: 20rpx; 
+}
+
+.logout-icon {
+  font-size: 36rpx;
+}
+
+.logout-text {
+  font-size: 24rpx;
+  color: #ffffff;
+}
+
+/*积分和优惠券区域*/
+.points-coupon-section {
+  display: flex;
+  width: 700rpx;
+  gap: 20rpx;
+  margin: 20rpx auto 0;
+}
+
+.points-box,
+.coupon-box {
+  flex: 1;
+  background-color: #fbf2e3;
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+
+
+.box-label {
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.box-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #e54545;
+}
+
+/*功能菜单区域*/
+.menu-section {
+  margin: 20rpx auto 0;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  width: 700rpx;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.menu-icon {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.menu-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.menu-arrow {
+  font-size: 40rpx;
+  color: #999;
+  font-weight: 300;
+}
+
+/*积分日志区域*/
+.points-log-section {
+  margin: 20rpx auto;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  width: 700rpx;
+}
+
+.log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.log-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.log-toggle {
+  font-size: 24rpx;
+  color: #e54545;
+  padding: 8rpx 16rpx;
+  background-color: #fff5f5;
+  border-radius: 4rpx;
+}
+
+.log-list {
+  max-height: 400rpx;
+  overflow-y: auto;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 30rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-info {
+  flex: 1;
+}
+
+.log-source {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.log-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.log-points {
+  font-size: 28rpx;
+  font-weight: bold;
+  min-width: 80rpx;
+  text-align: right;
+}
+
+.log-empty {
+  padding: 30rpx;
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+}
+
+/*未登录状态*/
+.login-prompt-section {
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  padding: 60rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.prompt-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 4rpx solid #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-icon {
+  font-size: 64rpx;
+  opacity: 0.8;
+}
+
+.prompt-text {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 24rpx 0;
+}
+
+.login-btn-main {
+  background-color: #ffffff;
+  color: #e54545;
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 20rpx 60rpx;
+  border-radius: 40rpx;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 默认头像样式 */
+.default-avatar {
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== MBTI 测试结果展示 ========== */
+.mbti-result-section {
+  width: 700rpx;
+  margin: 20rpx auto 0;
+}
+
+.mbti-card {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.mbti-left {
+  padding: 20rpx 28rpx;
+  text-align: center;
+}
+
+.mbti-type-label {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 2rpx;
+}
+
+.mbti-type-value {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 900;
+  color: #fff;
+  margin-top: 4rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+.mbti-type-name {
+  display: block;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 2rpx;
+}
+
+.mbti-right {
+  padding: 16rpx 24rpx 20rpx;
+}
+
+.mbti-figure-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.mbti-figure-label {
+  font-size: 24rpx;
+  color: #999;
+  font-weight: 600;
+}
+
+.mbti-arrow-text {
+  font-size: 24rpx;
+  color: #e54545;
+  font-weight: 500;
+}
+
+.mbti-figure-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.mbti-figure-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+  border: 3rpx solid #eee;
+}
+
+.mbti-figure-icon-default {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: 3rpx solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mbti-figure-emoji {
+  font-size: 30rpx;
+}
+
+.mbti-figure-detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.mbti-figure-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 2rpx;
+}
+
+.mbti-figure-desc {
+  display: block;
+  font-size: 20rpx;
+  color: #888;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  margin-bottom: 6rpx;
+}
+
+.mbti-traits-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.mbti-trait-tag {
+  font-size: 20rpx;
+  color: #666;
+  background: #f5f5f5;
+  padding: 4rpx 14rpx;
+  border-radius: 16rpx;
+  white-space: nowrap;
+}
+
+/* 未做MBTI测试提示 */
+.mbti-prompt-section {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  margin: 20rpx auto 0;
+  width: 700rpx;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(102, 126, 234, 0.3);
+}
+
+.mbti-prompt-icon {
+  font-size: 56rpx;
+  margin-right: 20rpx;
+}
+
+.mbti-prompt-text-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mbti-prompt-title {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: 700;
+}
+
+.mbti-prompt-desc {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 4rpx;
+}
+
+.mbti-prompt-go {
+  font-size: 26rpx;
+  color: #fff;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12rpx 24rpx;
+  border-radius: 24rpx;
+}

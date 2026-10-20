@@ -1,0 +1,46 @@
+<view class="page">
+  <!-- 搜索 -->
+  <view class="search-section">
+    <view class="search-box">
+      <icon type="search" size="16" color="#999"/>
+      <input class="search-input" placeholder="输入用户ID或昵称搜索"
+        value="{{searchKey}}" bindinput="onSearchInput" bindconfirm="doSearch" confirm-type="search"/>
+      <text class="search-btn" bindtap="doSearch">搜索</text>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="result-list" wx:if="{{results.length > 0}}">
+    <view class="result-item" wx:for="{{results}}" wx:key="_id">
+      <image class="result-avatar" src="{{item.displayAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <view class="result-info">
+        <text class="result-name">{{item.displayName}}</text>
+        <text class="result-uid" wx:if="{{item.uid}}">UID: {{item.uid}}</text>
+      </view>
+
+      <!-- 已是好友 -->
+      <text class="status-badge friend" wx:if="{{item.isFriend}}">已是好友</text>
+
+      <!-- 待处理申请中 -->
+      <text class="status-badge pending" wx:elif="{{item.requestPending}}">等待对方</text>
+
+      <!-- 发送申请 -->
+      <view class="add-btn" wx:else catchtap="sendRequest" data-id="{{item._id}}"
+            data-name="{{item.displayName}}"
+            data-avatar="{{item.displayAvatar}}">
+        添加
+      </view>
+    </view>
+  </view>
+
+  <!-- 无结果 -->
+  <view class="empty-state" wx:if="{{searched && results.length === 0 && !searching}}">
+    <text>未找到相关用户</text>
+  </view>
+
+  <!-- 默认提示 -->
+  <view class="default-tip" wx:if="{{!searched && results.length === 0}}">
+    <image class="tip-icon" src="/images/default_avatar.png" mode="aspectFill"/>
+    <text class="tip-text">通过用户ID或昵称搜索添加好友</text>
+  </view>
+</view>

@@ -1,0 +1,34 @@
+<view class="page">
+  <!-- 顶部提示 -->
+  <view class="top-tip">
+    <text>新的朋友</text>
+  </view>
+
+  <!-- 申请列表 -->
+  <scroll-view class="request-list" scroll-y>
+    <view class="request-item" wx:for="{{requests}}" wx:key="_id">
+      <image class="req-avatar" src="{{item.fromAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <view class="req-info">
+        <text class="req-name">{{item.fromName}}</text>
+        <text class="req-msg" wx:if="{{item.message}}">{{item.message}}</text>
+        <text class="req-time">{{item.createTimeStr}}</text>
+      </view>
+
+      <!-- 待处理 -->
+      <view class="req-actions" wx:if="{{item.status === 'pending'}}">
+        <view class="btn btn-accept" data-id="{{item._id}}" catchtap="acceptRequest">接受</view>
+        <view class="btn btn-reject" data-id="{{item._id}}" catchtap="rejectRequest">拒绝</view>
+      </view>
+
+      <!-- 已处理 -->
+      <text class="status-text accepted" wx:if="{{item.status === 'accepted'}}">已添加</text>
+      <text class="status-text rejected" wx:if="{{item.status === 'rejected'}}">已拒绝</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{requests.length === 0 && !loading}}">
+      <image class="empty-svg" src="/images/icons/mail.svg" mode="aspectFit"/>
+      <text class="empty-text">暂无好友申请</text>
+    </view>
+  </scroll-view>
+</view>

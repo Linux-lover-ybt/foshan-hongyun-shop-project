@@ -1,0 +1,168 @@
+<!--mine.wxml-->
+<view class="container">
+  <!--登录状态-->
+  <block wx:if="{{isLoggedIn}}">
+    <view class="user-info-section">
+      <view class="user-info-top-row">
+        <view class="user-info-left">
+          <image class="user-avatar" src="{{userInfo.avatar}}" mode="aspectFill" wx:if="{{userInfo.avatar}}"></image>
+          <view class="user-avatar default-avatar" wx:else>
+            <text class="avatar-icon">👤</text>
+          </view>
+          <!-- 名字 + UID + MBTI 纵向排列 -->
+          <view class="user-text-wrap">
+            <view class="user-name">{{userInfo.name || '用户'}}</view>
+            <view class="user-uid-row" bindtap="copyUid" wx:if="{{userInfo.uid}}">
+              <text class="user-uid-text">UID: {{userInfo.uid}}</text>
+              <text class="user-uid-copy">复制</text>
+            </view>
+            <view class="user-mbti-row" wx:if="{{hasMbtiResult}}">
+              <text class="user-mbti-tag" style="background:{{mbtiData.figureBg || '#667eea'}}">{{mbtiData.mbtiType}} {{mbtiData.mbtiName}}</text>
+              <text class="user-mbti-figure">· {{mbtiData.figureName}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="logout-btn" bindtap="handleLogout">
+          <text class="logout-text">退出登录</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!--未登录状态-->
+  <block wx:else>
+    <view class="login-prompt-section">
+      <view class="prompt-avatar">
+        <text class="avatar-icon">👤</text>
+      </view>
+      <view class="prompt-text">登录后解锁更多精彩内容</view>
+      <button class="login-btn-main" bindtap="goToLogin">立即登录/注册</button>
+    </view>
+  </block>
+
+  <!-- MBTI测试结果展示（登录后显示）-->
+  <view class="mbti-result-section" wx:if="{{isLoggedIn && hasMbtiResult}}" bindtap="goToMbtiTest">
+    <view class="mbti-card">
+      <!-- 左侧：MBTI类型 -->
+      <view class="mbti-left" style="{{hasMbtiResult ? 'background:' + mbtiData.figureBg : ''}}">
+        <text class="mbti-type-label">我的MBTI</text>
+        <text class="mbti-type-value">{{mbtiData.mbtiType}}</text>
+        <text class="mbti-type-name">{{mbtiData.mbtiName}}</text>
+      </view>
+      <!-- 右侧：对应佛山名人 -->
+      <view class="mbti-right">
+        <view class="mbti-figure-header">
+          <text class="mbti-figure-label">你的专属佛山名人</text>
+          <text class="mbti-arrow-text">重新测 ›</text>
+        </view>
+        <view class="mbti-figure-info">
+          <image class="mbti-figure-icon" src="{{mbtiData.figureIcon}}" mode="aspectFit" wx:if="{{mbtiData.figureIcon}}"></image>
+          <view class="mbti-figure-icon-default" wx:else>
+            <text class="mbti-figure-emoji">👤</text>
+          </view>
+          <view class="mbti-figure-detail">
+            <text class="mbti-figure-name">{{mbtiData.figureName}}</text>
+            <text class="mbti-figure-desc">{{mbtiData.figureDesc}}</text>
+            <view class="mbti-traits-row">
+              <text class="mbti-trait-tag" wx:for="{{mbtiData.figureTraits}}" wx:key="*this">{{item}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 未做MBTI测试提示（登录后无结果时）-->
+  <view class="mbti-prompt-section" wx:if="{{isLoggedIn && !hasMbtiResult}}" bindtap="goToMbtiTest">
+    <text class="mbti-prompt-icon">🧠</text>
+    <view class="mbti-prompt-text-wrap">
+      <text class="mbti-prompt-title">测测你是哪位佛山名人？</text>
+      <text class="mbti-prompt-desc">完成 MBTI 性格测试，匹配专属佛山名人</text>
+    </view>
+    <text class="mbti-prompt-go">去测试 ›</text>
+  </view>
+
+  <!--积分和优惠券区域-->
+  <view class="points-coupon-section">
+    <view class="points-box" bindtap="goToPoints">
+      <view class="box-label">我的积分</view>
+      <view class="box-value">{{isLoggedIn ? points : '--'}}</view>
+    </view>
+    <view class="coupon-box" bindtap="goToCoupons">
+      <view class="box-label">优惠券</view>
+      <view class="box-value">{{isLoggedIn ? coupons : '--'}}</view>
+    </view>
+  </view>
+
+  <!--积分日志区域-->
+  <view class="points-log-section" wx:if="{{showPointsLog && isLoggedIn}}">
+    <view class="log-header">
+      <view class="log-title">积分记录</view>
+      <view class="log-toggle" bindtap="togglePointsLog">{{showPointsLog ? '隐藏' : '显示'}}</view>
+    </view>
+    <view class="log-list">
+      <view class="log-item" wx:for="{{pointsLog}}" wx:key="index">
+        <view class="log-info">
+          <view class="log-source">{{item.source}}</view>
+          <view class="log-time">{{item.time}}</view>
+        </view>
+        <view class="log-points" style="color: {{item.points > 0 ? '#e54545' : '#999'}}">
+          {{item.points > 0 ? '+' : ''}}{{item.points}}
+        </view>
+      </view>
+      <view class="log-empty" wx:if="{{pointsLog.length === 0}}">暂无积分记录</view>
+    </view>
+  </view>
+  
+
+  <!--功能菜单区域-->
+  <view class="menu-section">
+    <view class="menu-item" bindtap="goToOrders">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/icons/orders.svg" mode="aspectFit"></image>
+        <view class="menu-text">我的订单</view>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToTasks">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/icons/tasks.svg" mode="aspectFit"></image>
+        <view class="menu-text">每日任务</view>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToPosts">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/icons/posts.svg" mode="aspectFit"></image>
+        <view class="menu-text">发表记录</view>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToUserManage">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/icons/user.svg" mode="aspectFit"></image>
+        <view class="menu-text">用户管理</view>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToFeedback">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/icons/feedback.svg" mode="aspectFit"></image>
+        <view class="menu-text">问题反馈</view>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToHelp">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/icons/help.svg" mode="aspectFit"></image>
+        <view class="menu-text">帮助中心</view>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+  </view>
+</view>

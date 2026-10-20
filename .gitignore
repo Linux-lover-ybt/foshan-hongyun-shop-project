@@ -1,0 +1,16 @@
+# WeChat DevTools local settings
+project.private.config.json
+weixin_app/project.private.config.json
+cloudbaserc.json/
+weixin_app/cloudbaserc.json/
+
+# Dependencies
+node_modules/
+miniprogram_npm/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

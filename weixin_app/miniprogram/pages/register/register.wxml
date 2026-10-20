@@ -1,0 +1,48 @@
+<!--pages/register/register.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="logo-text">🇨🇳</view>
+    <text class="title">创建账号</text>
+  </view>
+
+  <view class="register-form">
+    <view class="input-group">
+      <input class="input" type="number" placeholder="请输入手机号码" maxlength="11" bindinput="handleInput" data-field="phone" />
+    </view>
+
+    <view class="input-group">
+      <input class="input" password type="text" placeholder="请设置密码（至少6位）" bindinput="handlePasswordInput" />
+    </view>
+    <view class="password-strength">
+      <view class="strength-bar-item {{passwordStrength > 0 ? 'active' : ''}}" style="background-color: {{strengthColor}}"></view>
+      <view class="strength-bar-item {{passwordStrength > 1 ? 'active' : ''}}" style="background-color: {{strengthColor}}"></view>
+      <view class="strength-bar-item {{passwordStrength > 2 ? 'active' : ''}}" style="background-color: {{strengthColor}}"></view>
+      <text class="strength-text" wx:if="{{passwordStrength > 0}}">
+        {{passwordStrength === 1 ? '弱' : passwordStrength === 2 ? '中' : '强'}}
+      </text>
+    </view>
+
+    <view class="input-group">
+      <input class="input" password type="text" placeholder="请确认密码" bindinput="handleInput" data-field="confirmPassword" />
+    </view>
+
+    <view class="input-group">
+      <input class="input" type="text" placeholder="请输入昵称（选填）" bindinput="handleInput" data-field="nickname" />
+    </view>
+
+    <button class="register-btn" bindtap="handleRegister" loading="{{loading}}">注 册</button>
+  </view>
+
+  <view class="extra-actions">
+    <view class="agreement">
+      <checkbox class="agree-checkbox" checked="{{isAgreed}}" bindtap="toggleAgree"></checkbox>
+      <text class="agree-text">我已阅读并同意</text>
+      <navigator class="link" url="/pages/agreement/agreement">《用户协议》</navigator>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="footer-text">已有账号？</text>
+    <text class="link" bindtap="goToLogin">立即登录</text>
+  </view>
+</view>

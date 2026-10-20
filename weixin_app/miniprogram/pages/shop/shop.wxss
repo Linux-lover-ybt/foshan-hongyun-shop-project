@@ -1,0 +1,689 @@
+page {
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page {
+  padding-bottom: 40rpx;
+  min-height: 100vh;
+}
+
+/* ========== 搜索栏 ========== */
+.search-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, #c41e3a 0%, #e54545 50%, #ff6b6b 100%);
+  padding: 12rpx 24rpx 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(196, 30, 58, 0.3);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.search-bar-inner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 36rpx;
+  padding: 12rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.search-input {
+  flex: 1;
+  font-size: 26rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-left: 12rpx;
+  color: #333;
+}
+
+.search-placeholder {
+  color: #bbb;
+  font-size: 26rpx;
+}
+
+.search-clear {
+  display: flex;
+  align-items: center;
+  margin-left: 8rpx;
+}
+
+.search-btn {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 600;
+  padding: 12rpx 24rpx;
+  border-radius: 36rpx;
+  white-space: nowrap;
+}
+
+.search-btn:active {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ========== 轮播图 ========== */
+.swiper-wrap {
+  padding: 16rpx 24rpx 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 300rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+
+.swiper-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+}
+
+.banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+  margin-bottom: 12rpx;
+}
+
+.banner-desc {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ========== 分类入口 ========== */
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24rpx 20rpx;
+  background: #fff;
+  margin: 16rpx 24rpx 0;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.cat-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.cat-icon-wrap {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.cat-emoji {
+  font-size: 40rpx;
+}
+
+.cat-name {
+  font-size: 22rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ========== 限时秒杀 ========== */
+
+/* ========== 佛山名人堂 ========== */
+.famous-section {
+  background: #fff;
+  margin: 16rpx 24rpx 0;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.famous-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.famous-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.famous-badge {
+  background: linear-gradient(135deg, #c41e3a, #e54545);
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 700;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx;
+}
+
+.famous-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.famous-sub {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.famous-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.famous-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 8rpx;
+  border-radius: 16rpx;
+  background: #fafafa;
+  transition: transform 0.2s;
+}
+
+.famous-card:active {
+  transform: scale(0.95);
+}
+
+.famous-icon-wrap {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.famous-icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.famous-icon-emoji {
+  font-size: 48rpx;
+}
+
+.famous-name {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.famous-desc {
+  font-size: 18rpx;
+  color: #999;
+}
+.flash-sale {
+  background: #fff;
+  margin: 16rpx 24rpx 0;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.flash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.flash-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.flash-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #c41e3a;
+}
+
+.flash-countdown {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.countdown-block {
+  background: #333;
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 700;
+  padding: 4rpx 10rpx;
+  border-radius: 8rpx;
+  min-width: 44rpx;
+  text-align: center;
+}
+
+.countdown-sep {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.flash-more {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.arrow {
+  font-size: 24rpx;
+}
+
+.flash-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.flash-item {
+  width: calc(50% - 8rpx);
+  background: #fafafa;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.flash-item:active {
+  transform: scale(0.98);
+}
+
+.flash-img-wrap {
+  width: 100%;
+  height: 200rpx;
+  background: #f0f0f0;
+}
+
+.flash-img {
+  width: 100%;
+  height: 100%;
+}
+
+.flash-info {
+  padding: 12rpx;
+}
+
+.flash-name {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+
+.flash-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.flash-symbol {
+  font-size: 22rpx;
+  color: #c41e3a;
+  font-weight: 700;
+}
+
+.flash-price-num {
+  font-size: 32rpx;
+  color: #c41e3a;
+  font-weight: 800;
+}
+
+.flash-original {
+  font-size: 20rpx;
+  color: #ccc;
+  text-decoration: line-through;
+}
+
+/* ========== 分类标签栏 ========== */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  background: #fff;
+  margin-top: 16rpx;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.tab-item {
+  font-size: 28rpx;
+  color: #666;
+  padding: 12rpx 28rpx;
+  margin-right: 16rpx;
+  border-radius: 32rpx;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.tab-item.active {
+  background: linear-gradient(135deg, #c41e3a, #e54545);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(196, 30, 58, 0.3);
+}
+
+.price-arrow {
+  font-size: 20rpx;
+  margin-left: 4rpx;
+}
+
+.price-arrow::before {
+  content: '';
+  display: inline-block;
+  border-left: 6rpx solid transparent;
+  border-right: 6rpx solid transparent;
+  margin: 0 2rpx;
+}
+
+.price-arrow.up::before {
+  border-bottom: 8rpx solid #666;
+  margin-bottom: 4rpx;
+}
+
+.price-arrow.down::before {
+  border-top: 8rpx solid #666;
+}
+
+.tab-item.active .price-arrow.up::before,
+.tab-item.active .price-arrow.down::before {
+  border-color: #fff;
+}
+
+/* ========== 商品瀑布流 ========== */
+.goods-waterfall {
+  display: flex;
+  padding: 16rpx 12rpx;
+  gap: 12rpx;
+}
+
+.goods-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.goods-card {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.goods-card:active {
+  transform: scale(0.98);
+}
+
+.goods-img-wrap {
+  width: 100%;
+  background: #f5f5f5;
+  position: relative;
+  overflow: hidden;
+}
+
+.goods-img {
+  width: 100%;
+  display: block;
+}
+
+.goods-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, #c41e3a, #e54545);
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 600;
+  padding: 4rpx 16rpx 4rpx 8rpx;
+  border-radius: 0 0 16rpx 0;
+}
+
+.goods-info {
+  padding: 16rpx;
+}
+
+.goods-title {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.goods-shop {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  margin-bottom: 10rpx;
+}
+
+.shop-icon {
+  font-size: 20rpx;
+}
+
+.shop-name {
+  font-size: 20rpx;
+  color: #c41e3a;
+  font-weight: 600;
+  background: #fff5f5;
+  padding: 2rpx 10rpx;
+  border-radius: 4rpx;
+  border: 1rpx solid #ffcccc;
+}
+
+.goods-comments {
+  font-size: 20rpx;
+  color: #999;
+  margin-left: auto;
+}
+
+.goods-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.goods-price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.goods-symbol {
+  font-size: 22rpx;
+  color: #c41e3a;
+  font-weight: 700;
+}
+
+.goods-price {
+  font-size: 36rpx;
+  color: #c41e3a;
+  font-weight: 800;
+  margin-right: 8rpx;
+}
+
+.goods-original {
+  font-size: 22rpx;
+  color: #ccc;
+  text-decoration: line-through;
+}
+
+.goods-sold {
+  font-size: 20rpx;
+  color: #999;
+  margin-bottom: 4rpx;
+}
+
+.goods-action {
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.goods-cart-btn {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c41e3a, #e54545);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(196, 30, 58, 0.35);
+}
+
+.goods-cart-btn:active {
+  transform: scale(0.9);
+}
+
+.cart-icon-text {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-top: -2rpx;
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+  font-weight: 500;
+}
+
+.empty-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ========== 加载更多 ========== */
+.load-more {
+  text-align: center;
+  padding: 30rpx 0;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ========== 悬浮购物车 ========== */
+.float-cart {
+  position: fixed;
+  right: 32rpx;
+  bottom: 180rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c41e3a, #e54545);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(196, 30, 58, 0.4);
+  z-index: 90;
+}
+
+.float-cart:active {
+  transform: scale(0.92);
+}
+
+.float-cart-icon {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.float-cart-badge {
+  position: absolute;
+  top: -4rpx;
+  right: -4rpx;
+  background: #ff4444;
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: 700;
+  padding: 2rpx 10rpx;
+  border-radius: 16rpx;
+  min-width: 28rpx;
+  text-align: center;
+  border: 2rpx solid #fff;
+  box-shadow: 0 2rpx 6rpx rgba(255, 68, 68, 0.5);
+}
+
+/* ========== 回到顶部 ========== */
+.float-top {
+  position: fixed;
+  right: 32rpx;
+  bottom: 100rpx;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.12);
+  z-index: 90;
+  font-size: 32rpx;
+  color: #666;
+  font-weight: 700;
+}
+
+.float-top:active {
+  background: #f5f5f5;
+  transform: scale(0.92);
+}

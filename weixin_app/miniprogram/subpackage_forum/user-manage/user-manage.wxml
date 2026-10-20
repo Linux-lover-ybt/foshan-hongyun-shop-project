@@ -1,0 +1,68 @@
+<!--subpackage_forum/user-manage/user-manage.wxml-->
+<view class="page">
+  <!-- 头像区 -->
+  <view class="avatar-section">
+    <view class="avatar-wrapper">
+      <image class="avatar-img" src="{{avatarUrl || '/images/default_avatar.png'}}" mode="aspectFill"></image>
+      <view class="avatar-edit" wx:if="{{isEditing}}" bindtap="chooseAvatar">
+        <text>换头像</text>
+      </view>
+    </view>
+    <view class="user-nickname">{{nickname}}</view>
+    <view class="user-role role-{{role}}">{{roleText}}</view>
+  </view>
+
+  <!-- 编辑昵称 -->
+  <view class="section" wx:if="{{isEditing}}">
+    <view class="section-title">昵称</view>
+    <input class="edit-input" placeholder="请输入昵称" value="{{nickname}}" bindinput="onNicknameInput" maxlength="20" />
+    <view class="edit-actions">
+      <view class="btn btn-cancel" bindtap="cancelEdit">取消</view>
+      <view class="btn btn-save" bindtap="saveProfile">保存</view>
+    </view>
+  </view>
+
+  <!-- 资料信息 -->
+  <view class="section">
+    <view class="section-title">个人信息</view>
+    <view class="info-row">
+      <text class="info-label">昵称</text>
+      <text class="info-value">{{nickname}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">手机号</text>
+      <text class="info-value">{{phone}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">用户角色</text>
+      <text class="info-value role-badge role-{{role}}">{{roleText}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">当前积分</text>
+      <text class="info-value points">{{userPoints}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">注册时间</text>
+      <text class="info-value">{{registerTime}}</text>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="section menu-section">
+    <view class="menu-item" bindtap="startEdit" wx:if="{{!isEditing}}">
+      <text class="menu-icon">✏️</text>
+      <text class="menu-text">修改资料</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToMyPosts">
+      <text class="menu-icon">📝</text>
+      <text class="menu-text">我的发表</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToPointsLog">
+      <text class="menu-icon">💰</text>
+      <text class="menu-text">积分记录</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+</view>

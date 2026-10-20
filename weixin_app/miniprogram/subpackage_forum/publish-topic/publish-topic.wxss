@@ -1,0 +1,188 @@
+/* subpackage_forum/publish-topic/publish-topic.wxss */
+
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 140rpx;
+}
+
+.section {
+  background: #fff;
+  margin-bottom: 16rpx;
+  padding: 24rpx 30rpx;
+}
+
+.section-header { margin-bottom: 16rpx; }
+
+.section-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.tag-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  background: #f9f9f9;
+  border-radius: 12rpx;
+}
+
+.tag-value { font-size: 28rpx; color: #b92629; font-weight: 500; }
+.tag-arrow { font-size: 22rpx; color: #999; }
+
+.tag-picker {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.tag-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.picker-tag {
+  font-size: 24rpx;
+  color: #666;
+  background: #f0f0f0;
+  padding: 10rpx 24rpx;
+  border-radius: 24rpx;
+}
+
+.picker-tag.active {
+  color: #fff;
+  background: #b92629;
+  font-weight: 500;
+}
+
+.content-section { padding-bottom: 10rpx; }
+
+.content-input {
+  width: 100%;
+  min-height: 200rpx;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.8;
+}
+
+.video-title-input {
+  width: 100%;
+  height: 80rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.content-count {
+  text-align: right;
+  font-size: 22rpx;
+  color: #ccc;
+  margin-top: 10rpx;
+}
+
+/* 图片 */
+.image-section { padding-bottom: 30rpx; }
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.image-item {
+  position: relative;
+  width: 210rpx;
+  height: 210rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.preview-img { width: 100%; height: 100%; }
+
+.image-remove {
+  position: absolute;
+  top: 6rpx;
+  right: 6rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+}
+
+.image-add {
+  width: 210rpx;
+  height: 210rpx;
+  border-radius: 12rpx;
+  border: 2rpx dashed #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.add-icon { font-size: 52rpx; color: #ccc; line-height: 1; }
+.add-text { font-size: 22rpx; color: #ccc; }
+
+/* 视频上传 */
+.video-upload-area {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 12rpx;
+  border: 2rpx dashed #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.video-preview-wrapper { position: relative; }
+
+.video-preview-player {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 12rpx;
+}
+
+.video-remove-btn {
+  margin-top: 16rpx;
+  text-align: center;
+  color: #e54545;
+  font-size: 26rpx;
+  padding: 12rpx 0;
+}
+
+/* 底部按钮 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 30rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid #eee;
+  z-index: 100;
+}
+
+.publish-btn {
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(135deg, #e54545, #b92629);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publish-btn.disabled { opacity: 0.5; }

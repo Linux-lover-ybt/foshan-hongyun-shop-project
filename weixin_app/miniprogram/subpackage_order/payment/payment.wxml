@@ -1,0 +1,116 @@
+<view class="payment-page">
+  <!-- 商品信息区域 -->
+  <view class="product-section">
+    <view class="section-title">订单商品</view>
+    
+    <view class="product-item" wx:for="{{orderProducts}}" wx:key="id">
+      <image class="product-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="product-info">
+        <view class="product-name">{{item.name}}</view>
+        <view class="product-spec">{{item.description}}</view>
+        <view class="product-price">
+          <text class="price">¥{{item.price}}</text>
+          <text class="points">{{item.pointsPrice}}积分</text>
+        </view>
+      </view>
+      <view class="product-quantity">x{{item.quantity}}</view>
+    </view>
+  </view>
+
+  <!-- 价格明细区域 -->
+  <view class="price-section">
+    <view class="section-title">价格明细</view>
+    <view class="price-item">
+      <text class="label">商品原价</text>
+      <text class="value">¥{{orderInfo.originalPrice}}</text>
+    </view>
+    <view class="price-item">
+      <text class="label">优惠金额</text>
+      <text class="value discount">-¥{{orderInfo.discount}}</text>
+    </view>
+    <view class="price-item total">
+      <text class="label">应付总额</text>
+      <text class="value highlight">¥{{orderInfo.totalPrice}}</text>
+    </view>
+  </view>
+
+  <!-- 积分区域 -->
+  <view class="points-section">
+    <view class="section-header">
+      <view class="section-title">我的积分</view>
+      <view class="points-balance">
+        <text class="points-label">可用积分：</text>
+        <text class="points-value">{{userInfo.availablePoints}}</text>
+      </view>
+    </view>
+    
+    <view class="points-rule">
+      <view class="rule-title">积分抵扣规则：</view>
+      <view class="rule-item">1. 积分与人民币兑换比例为 100积分 = ¥1</view>
+      <view class="rule-item">2. 单次订单最多可使用订单金额的50%积分抵扣</view>
+      <view class="rule-item">3. 剩余未抵扣部分需用人民币支付</view>
+    </view>
+  </view>
+
+  <!-- 支付方式选择 -->
+  <view class="payment-method-section">
+    <view class="section-title">支付方式</view>
+    
+    <view class="payment-method-item {{selectedPaymentMethod === item.id ? 'selected' : ''}}" 
+          wx:for="{{paymentMethods}}" wx:key="id" 
+          bindtap="selectPaymentMethod" data-method="{{item.id}}">>
+      <image class="method-icon" src="{{item.icon}}" mode="aspectFit"/>
+      <view class="method-info">
+        <view class="method-name">{{item.name}}</view>
+        <view class="method-desc">{{item.description}}</view>
+      </view>
+      <view class="method-check">
+        <view class="check-icon {{selectedPaymentMethod === item.id ? 'checked' : ''}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 支付明细区域 -->
+  <view class="payment-detail-section">
+    <view class="section-title">支付明细</view>
+    <view class="payment-detail-item">
+      <text class="label">使用积分</text>
+      <text class="value points-use">{{paymentDetail.pointsUsed}} 积分</text>
+    </view>
+    <view class="payment-detail-item">
+      <text class="label">积分抵扣</text>
+      <text class="value discount">-¥{{paymentDetail.pointsDiscount}}</text>
+    </view>
+    <view class="payment-detail-item total">
+      <text class="label">需支付金额</text>
+      <text class="value highlight">¥{{paymentDetail.needToPay}}</text>
+    </view>
+  </view>
+
+  <!-- 余额不足提示 -->
+  <view class="insufficient-warning" wx:if="{{showInsufficientWarning}}">
+    <image class="warning-icon" src="/images/icons/warning.svg" mode="aspectFit"/>
+    <text class="warning-text">{{warningMessage}}</text>
+  </view>
+
+  <!-- 底部按钮区域 -->
+  <view class="bottom-actions">
+    <view class="total-info">
+      <text class="total-label">实付：</text>
+      <text class="total-amount">¥{{paymentDetail.needToPay}}</text>
+    </view>
+    <button class="btn-cancel" bindtap="onCancel">取消</button>
+    <button class="btn-submit" bindtap="onSubmitPayment" 
+            disabled="{{showInsufficientWarning || submitting}}">
+      {{submitting ? '支付中...' : '确认支付'}}
+    </button>
+  </view>
+
+  <!-- 提示信息弹窗 -->
+  <view class="toast" wx:if="{{toast.show}}">
+    <view class="toast-content {{toast.type}}">
+      <text class="toast-icon">{{toast.type === 'success' ? '✓' : toast.type === 'error' ? '✕' : '!'}}</text>
+      <text class="toast-text">{{toast.message}}</text>
+    </view>
+  </view>
+</view>

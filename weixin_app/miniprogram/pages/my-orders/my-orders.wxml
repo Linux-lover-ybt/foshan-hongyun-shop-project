@@ -1,0 +1,92 @@
+<!-- pages/my-orders/my-orders.wxml -->
+<view class="page">
+  <!-- 顶部Tab -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab {{activeTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">待付款</view>
+    <view class="tab {{activeTab === 'paid' ? 'active' : ''}}" bindtap="switchTab" data-tab="paid">已付款</view>
+    <view class="tab {{activeTab === 'shipped' ? 'active' : ''}}" bindtap="switchTab" data-tab="shipped">运输中</view>
+    <view class="tab {{activeTab === 'received' ? 'active' : ''}}" bindtap="switchTab" data-tab="received">已收货</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="order-list" wx:if="{{!loading}}">
+    <view class="order-card" wx:for="{{orders}}" wx:key="_id">
+      <!-- 订单头部 -->
+      <view class="order-header">
+        <text class="order-no">订单号: {{item.orderNo}}</text>
+        <text class="order-status" style="color: {{item.statusColor}}">{{item.statusText}}</text>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="order-items">
+        <view class="order-item" wx:for="{{item.items}}" wx:for-item="product" wx:key="id">
+          <image class="item-img" src="{{product.image}}" mode="aspectFill"/>
+          <view class="item-info">
+            <text class="item-name">{{product.name}}</text>
+            <text class="item-spec" wx:if="{{product.specText}}">{{product.specText}}</text>
+            <view class="item-bottom">
+              <text class="item-price">¥{{product.price}}</text>
+              <text class="item-qty">x{{product.quantity}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 订单底部 -->
+      <view class="order-footer">
+        <view class="order-total">
+          <text class="total-label">共{{item.items.length}}件商品 实付</text>
+          <text class="total-price">¥{{item.actualPrice}}</text>
+        </view>
+        <view class="order-actions">
+          <view class="action-btn logistics-btn" wx:if="{{item.status === 'shipped'}}" bindtap="viewLogistics" data-id="{{item._id}}">查看物流</view>
+          <view class="action-btn cancel-btn" wx:if="{{item.status === 'pending'}}" bindtap="cancelOrder" data-id="{{item._id}}">取消订单</view>
+          <view class="action-btn pay-btn" wx:if="{{item.status === 'pending'}}" bindtap="goToPay" data-id="{{item._id}}">去付款</view>
+          <view class="action-btn confirm-btn" wx:if="{{item.status === 'shipped'}}" bindtap="confirmReceive" data-id="{{item._id}}">确认收货</view>
+        </view>
+      </view>
+
+      <!-- 时间 -->
+      <view class="order-time">{{item.createTimeStr}}</view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{orders.length === 0}}">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无订单</text>
+    </view>
+  </view>
+
+  <!-- 物流弹窗 -->
+  <view class="logistics-mask" wx:if="{{showLogistics}}" bindtap="closeLogistics">
+    <view class="logistics-popup" catchtap="">
+      <view class="logistics-header">
+        <text class="logistics-title">物流信息</text>
+        <text class="logistics-close" bindtap="closeLogistics">✕</text>
+      </view>
+      <view class="logistics-company" wx:if="{{logisticsData.company}}">
+        <text>承运商: {{logisticsData.company}}</text>
+        <text wx:if="{{logisticsData.trackingNo}}">运单号: {{logisticsData.trackingNo}}</text>
+      </view>
+      <scroll-view class="logistics-traces" scroll-y>
+        <view class="trace-item" wx:for="{{logisticsData.traces}}" wx:key="index">
+          <view class="trace-dot"></view>
+          <view class="trace-line" wx:if="{{index < logisticsData.traces.length - 1}}"></view>
+          <view class="trace-content">
+            <text class="trace-desc">{{item.desc}}</text>
+            <text class="trace-time">{{item.time}}</text>
+          </view>
+        </view>
+        <view class="no-traces" wx:if="{{!logisticsData.traces || logisticsData.traces.length === 0}}">
+          暂无物流信息
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

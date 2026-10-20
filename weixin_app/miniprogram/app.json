@@ -1,0 +1,115 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/register/register",
+    "pages/index/index",
+    "pages/culture/culture",
+    "pages/mine/mine",
+    "pages/red-base/red-base",
+    "pages/shop/shop",
+    "pages/cart/cart",
+    "pages/agreement/agreement",
+    "pages/feedback/feedback",
+    "pages/feedback-history/feedback-history",
+    "pages/help/help",
+    "pages/famous-hall/famous-hall",
+    "pages/mbti-test/mbti-test",
+    "pages/spots/spots",
+    "pages/product-detail/product-detail",
+    "pages/my-orders/my-orders"
+  ],
+  "subpackages": [
+    {
+      "root": "subpackage_forum",
+      "name": "forum",
+      "pages": [
+        "forum/forum",
+        "forum-video/forum-video",
+        "forum-post/forum-post",
+        "topic-detail/topic-detail",
+        "publish-topic/publish-topic",
+        "my-posts/my-posts",
+        "user-manage/user-manage"
+      ]
+    },
+    {
+      "root": "subpackage_order",
+      "name": "order",
+      "pages": [
+        "payment/payment",
+        "orders/orders"
+      ]
+    },
+    {
+      "root": "subpackage_task",
+      "name": "task",
+      "pages": [
+        "tasks/tasks"
+      ]
+    },
+    {
+      "root": "subpackage_chat",
+      "name": "chat",
+      "pages": [
+        "messages/messages",
+        "contacts/contacts",
+        "chat/chat",
+        "friend-requests/friend-requests",
+        "add-friend/add-friend",
+        "friend-profile/friend-profile"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundColor": "#b92629",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#b92629",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#e54545",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/famous-hall/famous-hall",
+        "text": "名人堂",
+        "iconPath": "images/tabbar/famous.png",
+        "selectedIconPath": "images/tabbar/famous-active.png"
+      },
+      {
+        "pagePath": "pages/spots/spots",
+        "text": "景点",
+        "iconPath": "images/tabbar/spots.png",
+        "selectedIconPath": "images/tabbar/spots-active.png"
+      },
+      {
+        "pagePath": "pages/culture/culture",
+        "text": "文创",
+        "iconPath": "images/tabbar/culture.png",
+        "selectedIconPath": "images/tabbar/culture-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/tabbar/mine.png",
+        "selectedIconPath": "images/tabbar/mine-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于地图定位和显示附近景点"
+    }
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

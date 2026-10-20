@@ -1,0 +1,40 @@
+<view class="page">
+  <!-- 任务提示 -->
+  <view class="task-tip" wx:if="{{fromTask}}">
+    <view class="tip-content">
+      <text class="tip-icon">📝</text>
+      <text class="tip-text">完成发帖即可获得10积分</text>
+    </view>
+  </view>
+
+  <view class="header">
+    <view class="title">发帖</view>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <view class="label">帖子标题</view>
+      <input class="input" placeholder="输入标题（必填）" bindinput="onTitleInput" value="{{title}}" maxlength="80" />
+    </view>
+
+    <view class="form-item">
+      <view class="label">内容</view>
+      <textarea class="textarea" placeholder="输入内容（必填）" bindinput="onContentInput" value="{{content}}" maxlength="2000"></textarea>
+    </view>
+
+    <view class="form-item">
+      <view class="label">图片（可选）</view>
+      <view class="images">
+        <block wx:for="{{images}}" wx:key="index">
+          <image class="thumb" src="{{item}}" mode="aspectFill"></image>
+        </block>
+        <view class="add" bindtap="chooseImage">＋</view>
+      </view>
+    </view>
+
+    <view class="actions">
+      <button bindtap="submit" class="btn-primary">发布</button>
+      <button bindtap="cancel" class="btn-secondary">取消</button>
+    </view>
+  </view>
+</view>

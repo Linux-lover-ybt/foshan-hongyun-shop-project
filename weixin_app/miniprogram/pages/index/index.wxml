@@ -1,0 +1,72 @@
+<view class="page-wrapper">
+  <!-- 背景图 -->
+  <image class="bg-image" src="/images/background.jpg" mode="aspectFill"></image>
+
+  <!-- 内容容器 -->
+  <view class="container">
+    <!-- 核心功能区域 -->
+    <view class="functions-section">
+      <view class="function-card high-frequency" bindtap="goToForum">
+        <view class="card-icon">
+          <image class="card-icon-img" src="/images/red_base.png" mode="aspectFit"></image>
+        </view>
+        <view class="card-content">
+          <view class="card-title">红色基地</view>
+          <view class="card-desc">视频学习与分享</view>
+        </view>
+        <view class="card-arrow">›</view>
+      </view>
+
+      <view class="function-card high-frequency" bindtap="goToRedBase">
+        <view class="card-icon green">
+          <image class="card-icon-img" src="/images/icons/forum.svg" mode="aspectFit"></image>
+        </view>
+        <view class="card-content">
+          <view class="card-title">话题广场</view>
+          <view class="card-desc">看话题、看视频、发布讨论</view>
+        </view>
+        <view class="card-arrow">›</view>
+      </view>
+
+      <view class="function-card high-frequency" bindtap="goToTasks">
+        <view class="card-icon blue">
+          <text class="card-icon-text">📋</text>
+        </view>
+        <view class="card-content">
+          <view class="card-title">任务中心</view>
+          <view class="card-desc">完成任务获积分</view>
+        </view>
+        <view class="card-arrow">›</view>
+      </view>
+    </view>
+
+    <!-- 精选推荐 -->
+    <view class="featured-section">
+      <view class="featured-card" bindtap="goToForum">
+        <view class="featured-icon">🏛️</view>
+        <view class="featured-text">
+          <view class="featured-title">红色基地</view>
+          <view class="featured-desc">探索佛山</view>
+        </view>
+      </view>
+
+      <view class="featured-card" bindtap="goToMessages">
+        <view class="featured-icon">💬</view>
+        <view class="featured-text">
+          <view class="featured-title">消息</view>
+          <view class="featured-desc">{{unreadCount > 0 ? unreadCount + '条未读' : '聊天消息'}}</view>
+        </view>
+      </view>
+
+      <view class="featured-card" bindtap="goToRedBase">
+        <view class="featured-icon-wrap">
+          <image class="featured-icon-img" src="/images/icons/forum_featured.svg" mode="aspectFit"></image>
+        </view>
+        <view class="featured-text">
+          <view class="featured-title">话题广场</view>
+          <view class="featured-desc">话题·视频</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

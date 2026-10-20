@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 康有为 - 变法先驱，书卷气 -->
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513"/>
+      <stop offset="100%" style="stop-color:#D2691E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg1)"/>
+  <!-- 头部 -->
+  <circle cx="60" cy="38" r="18" fill="#FDEBD0"/>
+  <!-- 发髻（清代文人形象） -->
+  <ellipse cx="60" cy="22" rx="12" ry="8" fill="#333"/>
+  <!-- 身体/长袍 -->
+  <path d="M36 56 Q36 52 42 50 L54 46 Q60 44 66 46 L78 50 Q84 52 84 56 L82 100 Q60 105 38 100 Z" fill="#2C3E50"/>
+  <!-- 领口 -->
+  <path d="M52 50 L60 62 L68 50" fill="none" stroke="#F5F5DC" stroke-width="2"/>
+  <!-- 书卷 -->
+  <rect x="72" y="58" width="18" height="24" rx="2" fill="#F5F5DC" stroke="#8B4513" stroke-width="1.5"/>
+  <line x1="76" y1="64" x2="86" y2="64" stroke="#8B4513" stroke-width="1"/>
+  <line x1="76" y1="68" x2="86" y2="68" stroke="#8B4513" stroke-width="1"/>
+  <line x1="76" y1="72" x2="86" y2="72" stroke="#8B4513" stroke-width="1"/>
+  <!-- 眼睛 -->
+  <circle cx="53" cy="36" r="2" fill="#333"/>
+  <circle cx="67" cy="36" r="2" fill="#333"/>
+  <!-- 胡须 -->
+  <path d="M56 46 Q60 52 64 46" fill="none" stroke="#333" stroke-width="1"/>
+</svg>

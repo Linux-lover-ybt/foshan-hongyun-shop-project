@@ -1,0 +1,180 @@
+page { background: #ededed; height: 100vh; display: flex; flex-direction: column; }
+.page { display: flex; flex-direction: column; height: 100vh; }
+
+/* 消息滚动区 */
+.message-scroll {
+  flex: 1;
+  padding: 20rpx;
+  overflow: hidden;
+  padding-bottom: 20rpx;
+}
+
+.load-more { text-align: center; padding: 16rpx; color: #999; font-size: 24rpx; }
+
+/* 消息气泡 */
+.msg-bubble-wrap {
+  display: flex;
+  margin-bottom: 28rpx;
+  align-items: flex-start;
+}
+.msg-bubble-wrap.mine { flex-direction: row-reverse; }
+
+/* 发送状态指示 */
+.send-status {
+  display: flex; align-items: center; justify-content: center;
+  width: 40rpx; flex-shrink: 0;
+}
+.sending { font-size: 24rpx; }
+.failed { font-size: 28rpx; }
+
+.status-svg {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.msg-avatar {
+  width: 72rpx; height: 72rpx;
+  border-radius: 10rpx; flex-shrink: 0;
+}
+
+.bubble {
+  max-width: 65%;
+  border-radius: 12rpx;
+  padding: 18rpx 22rpx;
+  position: relative;
+  margin: 0 16rpx;
+}
+.bubble-other {
+  background: #fff;
+  border-top-left-radius: 4rpx;
+}
+.bubble-mine {
+  background: #95ec69;
+  border-top-right-radius: 4rpx;
+}
+
+.bubble-text {
+  font-size: 30rpx; color: #333;
+  line-height: 1.5; word-break: break-all;
+}
+.bubble-mine .bubble-text { color: #000; }
+
+.bubble-img {
+  max-width: 400rpx;
+  border-radius: 8rpx;
+  display: block;
+}
+
+/* 空状态 */
+.chat-empty { display: flex; justify-content: center; align-items: center; height: 400rpx; }
+.chat-empty-text { font-size: 28rpx; color: #bbb; }
+
+/* 底部输入栏 */
+.input-bar {
+  background: #f7f7f7;
+  border-top: 1rpx solid #ddd;
+  padding: 14rpx 20rpx;
+  padding-bottom: calc(14rpx + env(safe-area-inset-bottom));
+  flex-shrink: 0;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+}
+
+.voice-btn, .emoji-btn, .more-btn {
+  width: 64rpx; height: 64rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40rpx; flex-shrink: 0;
+}
+
+.tool-svg {
+  width: 44rpx;
+  height: 44rpx;
+  opacity: 0.65;
+}
+
+.msg-input {
+  flex: 1;
+  background: #fff;
+  border-radius: 8rpx;
+  padding: 14rpx 20rpx;
+  font-size: 30rpx;
+  margin: 0 12rpx;
+  max-height: 160rpx;
+}
+
+.voice-input-placeholder {
+  flex: 1;
+  background: #fff;
+  border-radius: 8rpx;
+  text-align: center;
+  padding: 14rpx 20rpx;
+  font-size: 28rpx;
+  color: #666;
+  margin: 0 12rpx;
+}
+
+.send-btn {
+  background: #07c160;
+  color: #fff;
+  padding: 10rpx 28rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  flex-shrink: 0;
+  margin-right: 8rpx;
+}
+.send-btn.disabled {
+  background: #e0e0e0;
+  color: #999;
+}
+
+.more-btn {
+  width: 64rpx; height: 64rpx;
+  background: #07c160;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 表情按钮激活状态 */
+.emoji-btn.active .tool-svg {
+  opacity: 1;
+}
+
+/* 表情面板 */
+.emoji-panel {
+  margin-top: 16rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  max-height: 400rpx;
+}
+
+.emoji-scroll {
+  height: 380rpx;
+}
+
+.emoji-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12rpx;
+}
+
+.emoji-item {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  border-radius: 8rpx;
+}
+
+.emoji-item:active {
+  background: #f0f0f0;
+}

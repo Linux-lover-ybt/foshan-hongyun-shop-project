@@ -1,0 +1,297 @@
+/* pages/login/login.wxss */
+page {
+  background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  padding: 40rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.bg-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  background: linear-gradient(135deg, #e93b3d 0%, #ff6b6b 100%);
+  border-bottom-left-radius: 80rpx;
+  border-bottom-right-radius: 80rpx;
+  z-index: 0;
+}
+
+.skip-btn {
+  position: absolute;
+  top: 60rpx;
+  right: 48rpx;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 12rpx 24rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 40rpx;
+  z-index: 10;
+  backdrop-filter: blur(10rpx);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80rpx;
+  margin-bottom: 60rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-wrapper {
+  margin-bottom: 30rpx;
+}
+
+.logo-icon {
+  width: 140rpx;
+  height: 140rpx;
+  background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 32rpx rgba(233, 59, 61, 0.2);
+}
+
+.logo-icon text {
+  font-size: 72rpx;
+  font-weight: bold;
+  color: #e93b3d;
+  line-height: 1;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 12rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+.card-wrapper {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.card {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  box-shadow: 0 8rpx 48rpx rgba(0, 0, 0, 0.08);
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 48rpx;
+  background: #f5f5f5;
+  border-radius: 20rpx;
+  padding: 8rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 32rpx;
+  color: #666;
+  border-radius: 14rpx;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.tab-item.active {
+  color: #fff;
+  background: linear-gradient(135deg, #e93b3d 0%, #ff6b6b 100%);
+  box-shadow: 0 4rpx 16rpx rgba(233, 59, 61, 0.3);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 20rpx;
+  padding: 28rpx 32rpx;
+  border: 2rpx solid transparent;
+}
+
+.input-wrapper:focus-within {
+  background: #fff;
+  border-color: #e93b3d;
+}
+
+/* 验证码区域 */
+.code-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -12rpx;
+}
+
+.verify-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0;
+  margin-top: 12rpx;
+}
+
+.input-icon {
+  margin-right: 20rpx;
+  width: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.verify-btn {
+  background: linear-gradient(135deg, #e93b3d 0%, #ff6b6b 100%) !important;
+  color: #fff !important;
+  font-size: 26rpx !important;
+  padding: 16rpx 32rpx !important;
+  margin: 0 !important;
+  margin-left: auto !important;
+  line-height: 1.4 !important;
+  border-radius: 14rpx !important;
+  border: none !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4rpx 16rpx rgba(233, 59, 61, 0.3);
+  white-space: nowrap;
+  width: auto !important;
+  min-height: 0 !important;
+  display: inline-flex !important;
+}
+
+.verify-btn[disabled] {
+  background: #e0e0e0;
+  color: #999;
+  box-shadow: none;
+}
+
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: -8rpx;
+}
+
+.strength-label {
+  font-size: 26rpx;
+  color: #999;
+  width: 120rpx;
+}
+
+.strength-bars {
+  flex: 1;
+  display: flex;
+  gap: 10rpx;
+}
+
+.strength-bar-item {
+  flex: 1;
+  height: 10rpx;
+  background-color: #e0e0e0;
+  border-radius: 5rpx;
+  transition: all 0.3s ease;
+}
+
+.strength-bar-item.active {
+  /* 颜色由 style 动态绑定 */
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #e93b3d 0%, #ff6b6b 100%);
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 600;
+  border-radius: 24rpx;
+  margin-top: 24rpx;
+  padding: 28rpx;
+  box-shadow: 0 8rpx 24rpx rgba(233, 59, 61, 0.35);
+  border: none;
+}
+
+.login-btn:active {
+  opacity: 0.9;
+}
+
+.extra-actions {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  align-items: flex-start;
+}
+
+.agreement {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.agree-checkbox {
+  transform: scale(0.85);
+  margin-right: 8rpx;
+}
+
+.link {
+  color: #e93b3d;
+  display: inline;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.forgot-password {
+  align-self: flex-end;
+  margin-top: -10rpx;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  font-size: 30rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-text {
+  color: #666;
+}
+
+.footer .link {
+  font-size: 30rpx;
+  margin-left: 12rpx;
+  font-weight: 600;
+}

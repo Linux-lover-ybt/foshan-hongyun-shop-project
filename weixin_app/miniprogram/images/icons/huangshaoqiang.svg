@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs><linearGradient id="bg_hsq" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#9B59B6"/><stop offset="100%" style="stop-color:#BB8FCE"/></linearGradient></defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg_hsq)"/>
+  <circle cx="60" cy="40" r="16" fill="#FDFBD0"/>
+  <ellipse cx="60" cy="26" rx="12" ry="7" fill="#333"/>
+  <path d="M40 56 Q40 52 46 50 L54 48 Q60 46 66 48 L74 50 Q80 52 80 56 L78 99 Q60 104 42 99Z" fill="#6C3483"/>
+  <!-- 鐢荤瑪 -->
+  <g transform="translate(70,55) rotate(-30)">
+    <rect x="0" y="0" width="4" height="20" rx="1" fill="#F5F5DC"/>
+    <path d="M0 20 L2 28 L4 20" fill="#333"/>
+  </g>
+  <!-- 鐢绘灦鏆楃ず -->
+  <line x1="28" y1="70" x2="28" y2="100" stroke="#F5F5DC" stroke-width="2"/>
+  <circle cx="53" cy="37" r="2" fill="#333"/><circle cx="67" cy="37" r="2" fill="#333"/>
+  <path d="M56 45 Q60 50 64 45" fill="none" stroke="#333" stroke-width="1"/>
+</svg>

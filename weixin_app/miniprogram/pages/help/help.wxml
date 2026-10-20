@@ -1,0 +1,114 @@
+<!--pages/help/help.wxml-->
+<view class="page-container">
+  <!-- 顶部标题区 -->
+  <view class="header-section">
+    <view class="header-icon">❓</view>
+    <view class="header-title">帮助中心</view>
+    <view class="header-desc">常见问题解答，快速解决您的疑问</view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-actions">
+    <view class="action-item" bindtap="goToFeedback">
+      <image class="action-icon" src="/images/icons/feedback.svg" mode="aspectFit"></image>
+      <view class="action-name">在线反馈</view>
+    </view>
+    <view class="action-item" bindtap="copyText" data-text="{{contactInfo.email}}">
+      <image class="action-icon" src="/images/icons/email.svg" mode="aspectFit"></image>
+      <view class="action-name">邮箱联系</view>
+    </view>
+    <view class="action-item" bindtap="callPhone">
+      <image class="action-icon" src="/images/icons/phone.svg" mode="aspectFit"></image>
+      <view class="action-name">电话咨询</view>
+    </view>
+  </view>
+
+  <!-- FAQ分类 -->
+  <view class="category-tabs">
+    <scroll-view scroll-x class="tabs-scroll">
+      <view class="tabs-inner">
+        <view 
+          class="tab-item {{activeCategory === item.id ? 'active' : ''}}" 
+          wx:for="{{categories}}" 
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="switchCategory"
+        >
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- FAQ列表 -->
+  <view class="faq-section">
+    <view class="faq-list">
+      <view 
+        class="faq-item" 
+        wx:for="{{faqData[activeCategory]}}" 
+        wx:key="q"
+      >
+        <view class="faq-header" data-index="{{index}}" bindtap="toggleFaq">
+          <view class="faq-q">
+            <text class="q-badge">问</text>
+            <text class="q-text">{{item.q}}</text>
+          </view>
+          <view class="faq-arrow {{expandedIndex === index ? 'expanded' : ''}}">
+            <text>›</text>
+          </view>
+        </view>
+        <view class="faq-content {{expandedIndex === index ? 'show' : ''}}">
+          <view class="faq-a">
+            <text class="a-badge">答</text>
+            <text class="a-text">{{item.a}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-faq" wx:if="{{faqData[activeCategory].length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无相关问题</text>
+    </view>
+  </view>
+
+  <!-- 联系我们卡片 -->
+  <view class="contact-card">
+    <view class="card-header">
+      <text class="card-title">联系我们</text>
+      <text class="card-subtitle">工作日 9:00-18:00 在线</text>
+    </view>
+    <view class="contact-list">
+      <view class="contact-row" bindtap="copyText" data-text="{{contactInfo.email}}">
+        <image class="contact-icon email" src="/images/icons/email.svg" mode="aspectFit"></image>
+        <view class="contact-info">
+          <view class="contact-label">客服邮箱</view>
+          <view class="contact-value">{{contactInfo.email}}</view>
+        </view>
+        <view class="contact-action">
+          <text>复制</text>
+        </view>
+      </view>
+      <view class="contact-row" bindtap="callPhone">
+        <image class="contact-icon phone" src="/images/icons/phone.svg" mode="aspectFit"></image>
+        <view class="contact-info">
+          <view class="contact-label">服务热线</view>
+          <view class="contact-value">{{contactInfo.phone}}</view>
+        </view>
+        <view class="contact-action primary">
+          <text>拨打</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部反馈入口 -->
+  <view class="bottom-entry" bindtap="goToFeedback">
+    <view class="entry-content">
+      <text class="entry-icon">✏️</text>
+      <text class="entry-text">没有找到答案？点此提交反馈</text>
+    </view>
+    <text class="entry-arrow">→</text>
+  </view>
+</view>

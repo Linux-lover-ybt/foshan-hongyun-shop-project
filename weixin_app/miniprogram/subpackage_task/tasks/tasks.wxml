@@ -1,0 +1,60 @@
+<!--tasks.wxml-->
+<view class="container">
+  <!-- 顶部积分区域 -->
+  <view class="points-header">
+    <view class="points-info">
+      <view class="points-label">我的积分</view>
+      <view class="points-value">{{totalPoints}}</view>
+    </view>
+    <view class="date-info">
+      <view class="date-label">今日</view>
+      <view class="date-value">{{todayDate}}</view>
+    </view>
+  </view>
+
+  <!-- 任务内容区域 -->
+  <view class="task-content">
+    <!-- 任务列表 -->
+    <view class="task-list">
+      <view class="task-section">
+        <view class="section-header">
+          <view class="section-title">每日任务</view>
+          <view class="section-subtitle">完成任务获取积分奖励</view>
+        </view>
+        
+        <view class="task-items">
+  <view 
+    class="task-item {{item.completed ? 'completed' : ''}}" 
+    wx:for="{{tasks}}" 
+    wx:key="id"
+    wx:for-item="item"
+    bindtap="completeTask"
+    data-id="{{item.id}}"
+  >
+    <view class="task-left">
+      <view class="task-icon">{{item.icon}}</view>
+      <view class="task-info">
+        <view class="task-title">{{item.title}}</view>
+        <view class="task-description">{{item.description}}</view>
+      </view>
+    </view>
+    <view class="task-right">
+      <view class="task-points" wx:if="{{!item.completed}}">+{{item.points}}</view>
+      <view class="task-completed" wx:else>已完成</view>
+    </view>
+  </view>
+</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 任务说明 -->
+  <view class="task-rules">
+    <view class="rules-title">任务说明</view>
+    <view class="rules-content">
+      <view class="rule-item">• 每日任务每天可完成一次</view>
+      <view class="rule-item">• 完成任务后可获得相应积分</view>
+      <view class="rule-item">• 积分可在文创商城兑换商品</view>
+    </view>
+  </view>
+</view>

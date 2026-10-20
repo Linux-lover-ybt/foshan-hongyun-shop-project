@@ -1,0 +1,173 @@
+<view class="page">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <icon type="search" size="14" color="#999"/>
+      <input class="search-input" placeholder="搜索" disabled bindtap="goToSearch"/>
+    </view>
+  </view>
+
+  <!-- 消息Tab内容 -->
+  <block wx:if="{{currentTab === 'chat'}}">
+    <!-- 功能入口 -->
+    <view class="func-list">
+      <view class="func-item" bindtap="goToFriendRequests">
+        <view class="func-icon friend-req-icon">
+          <image class="func-svg" src="/images/icons/user-add.svg" mode="aspectFit"/>
+          <view class="badge" wx:if="{{requestCount > 0}}">{{requestCount > 99 ? '99+' : requestCount}}</view>
+        </view>
+        <view class="func-info">
+          <text class="func-name">新的朋友</text>
+          <text class="func-desc">{{requestCount > 0 ? requestCount + '个好友申请' : ''}}</text>
+        </view>
+        <text class="func-arrow">></text>
+      </view>
+
+      <view class="func-item" bindtap="goToGroupList">
+        <view class="func-icon group-icon">
+          <image class="func-svg" src="/images/icons/group.svg" mode="aspectFit"/>
+        </view>
+        <view class="func-info">
+          <text class="func-name">群聊</text>
+        </view>
+        <text class="func-arrow">></text>
+      </view>
+    </view>
+
+    <!-- 消息列表 -->
+    <scroll-view class="message-list" scroll-y enhanced show-scrollbar="{{false}}">
+      <view class="msg-item" wx:for="{{conversations}}" wx:key="_id" bindtap="openChat" data-id="{{item._id}}" data-friend-id="{{item.friendId}}" data-name="{{item.friendName}}" data-avatar="{{item.friendAvatar}}">
+        <view class="msg-avatar-wrap">
+          <image class="msg-avatar" src="{{item.friendAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+          <view class="online-dot" wx:if="{{item.isOnline}}"></view>
+        </view>
+        <view class="msg-content">
+          <view class="msg-top">
+            <text class="msg-name">{{item.friendName}}</text>
+            <text class="msg-time">{{item.lastTime}}</text>
+          </view>
+          <view class="msg-bottom">
+            <text class="msg-preview" wx:if="{{item.lastMsgType === 'text'}}">{{item.lastMsg}}</text>
+            <text class="msg-preview" wx:elif="{{item.lastMsgType === 'image'}}">[图片]</text>
+            <text class="msg-preview" wx:else>{{item.lastMsg}}</text>
+            <view class="unread-badge" wx:if="{{item.unreadCount > 0}}">{{item.unreadCount > 99 ? '99+' : item.unreadCount}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{conversations.length === 0 && !loading}}">
+        <image class="empty-svg" src="/images/icons/chat.svg" mode="aspectFit"/>
+        <text class="empty-text">暂无聊天记录</text>
+        <text class="empty-tip">去通讯录添加好友开始聊天吧</text>
+      </view>
+    </scroll-view>
+  </block>
+
+  <!-- 通讯录Tab内容（内联） -->
+  <block wx:if="{{currentTab === 'contacts'}}">
+    <!-- 功能入口 -->
+    <view class="func-section">
+      <view class="func-item" bindtap="goToFriendRequests">
+        <view class="func-icon new-friend-icon">
+          <image class="func-svg" src="/images/icons/user-add.svg" mode="aspectFit"/>
+        </view>
+        <text class="func-name">新的朋友</text>
+        <view class="func-right">
+          <text class="func-badge" wx:if="{{requestCount > 0}}">{{requestCount}}</text>
+          <text class="func-arrow">></text>
+        </view>
+      </view>
+      <view class="func-item" bindtap="goToAddFriend">
+        <view class="func-icon add-friend-icon">
+          <image class="func-svg" src="/images/icons/plus.svg" mode="aspectFit"/>
+        </view>
+        <text class="func-name">添加好友</text>
+        <view class="func-right"><text class="func-arrow">></text></view>
+      </view>
+      <view class="func-item" bindtap="goToGroupList">
+        <view class="func-icon group-icon-2">
+          <image class="func-svg" src="/images/icons/group.svg" mode="aspectFit"/>
+        </view>
+        <text class="func-name">群聊</text>
+        <view class="func-right"><text class="func-arrow">></text></view>
+      </view>
+    </view>
+
+    <!-- 好友列表（带字母索引） -->
+    <scroll-view class="friend-list" scroll-y scroll-into-view="{{scrollToView}}" enhanced show-scrollbar="{{false}}">
+      <block wx:for="{{groupedFriends}}" wx:key="letter">
+        <view class="section-header" id="section-{{item.letter}}">{{item.letter}}</view>
+        <view class="friend-item" wx:for="{{item.list}}" wx:for-item="friend" wx:key="_id"
+              bindtap="viewFriendInfo" data-friend-id="{{friend.friendId}}"
+              data-friend-name="{{friend.nickName || friend.name}}"
+              data-avatar="{{friend.avatar}}"
+              data-signature="{{friend.signature}}"
+              data-uid="{{friend.uid}}">
+          <image class="friend-avatar" src="{{friend.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+          <view class="friend-info">
+            <text class="friend-name">{{friend.nickName || friend.name}}</text>
+            <text class="friend-signature" wx:if="{{friend.signature}}">{{friend.signature}}</text>
+          </view>
+          <text class="friend-arrow">></text>
+        </view>
+      </block>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{friends.length === 0 && !loading}}">
+        <image class="empty-svg" src="/images/icons/group.svg" mode="aspectFit"/>
+        <text class="empty-text">暂无好友</text>
+        <text class="empty-tip">点击添加好友开始社交</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧字母索引 -->
+    <view class="index-bar" catchtouchstart="onIndexTouchStart" catchtouchmove="onIndexTouchMove" catchtouchend="onIndexTouchEnd">
+      <view class="index-item {{currentLetter === item ? 'active' : ''}}"
+            wx:for="{{letters}}" wx:key="*this"
+            data-letter="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </block>
+
+  <!-- 好友详情弹窗 -->
+  <view class="friend-modal" wx:if="{{showFriendModal}}" catchtap="closeFriendModal">
+    <view class="friend-modal-content" catchtap="">
+      <view class="friend-modal-header">
+        <image class="friend-modal-avatar" src="{{selectedFriend.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="friend-modal-info">
+          <text class="friend-modal-name">{{selectedFriend.name}}</text>
+          <text class="friend-modal-uid" wx:if="{{selectedFriend.uid}}">UID: {{selectedFriend.uid}}</text>
+          <text class="friend-modal-signature" wx:if="{{selectedFriend.signature}}">{{selectedFriend.signature}}</text>
+        </view>
+      </view>
+      <view class="friend-modal-actions">
+        <view class="friend-modal-btn chat-btn" bindtap="openChatFromModal">
+          <image class="btn-svg" src="/images/icons/chat.svg" mode="aspectFit"/>
+          <text class="btn-label">发消息</text>
+        </view>
+        <view class="friend-modal-btn profile-btn" bindtap="viewFullProfile">
+          <image class="btn-svg" src="/images/icons/profile.svg" mode="aspectFit"/>
+          <text class="btn-label">查看资料</text>
+        </view>
+      </view>
+      <view class="friend-modal-close" bindtap="closeFriendModal">关闭</view>
+    </view>
+  </view>
+
+  <!-- 底部导航栏 -->
+  <view class="bottom-tab-bar">
+    <view class="tab-item {{currentTab === 'chat' ? 'active' : ''}}" bindtap="switchTab" data-tab="chat">
+      <image class="tab-svg {{currentTab === 'chat' ? 'tab-svg-active' : ''}}" src="/images/icons/chat.svg" mode="aspectFit"/>
+      <text class="tab-text">消息</text>
+    </view>
+    <view class="tab-item {{currentTab === 'contacts' ? 'active' : ''}}" bindtap="switchTab" data-tab="contacts">
+      <view class="tab-icon-wrap">
+        <image class="tab-svg {{currentTab === 'contacts' ? 'tab-svg-active' : ''}}" src="/images/icons/group.svg" mode="aspectFit"/>
+        <view class="tab-badge" wx:if="{{requestCount > 0}}"></view>
+      </view>
+      <text class="tab-text">通讯录</text>
+    </view>
+  </view>
+</view>

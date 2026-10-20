@@ -1,0 +1,191 @@
+<view class="page">
+  <!-- 搜索栏 -->
+  <view class="search-header">
+    <view class="search-bar">
+      <view class="search-bar-inner">
+        <icon type="search" size="14" color="#999"/>
+        <input class="search-input" placeholder="搜索文创好物" placeholder-class="search-placeholder" confirm-type="search" bindconfirm="onSearch" bindinput="onSearchInput" value="{{searchKey}}"/>
+        <view class="search-clear" wx:if="{{searchKey}}" bindtap="clearSearch">
+          <icon type="clear" size="14" color="#ccc"/>
+        </view>
+      </view>
+      <view class="search-btn" bindtap="doSearch">搜索</view>
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <view class="swiper-wrap">
+    <swiper class="swiper" autoplay circular interval="4000" duration="500" indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff">
+      <swiper-item wx:for="{{banners}}" wx:key="index">
+        <view class="swiper-item" style="background: {{item.bg}}">
+          <view class="banner-content">
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 分类入口 -->
+  <view class="category-grid">
+    <view class="cat-item" wx:for="{{categoryIcons}}" wx:key="name" bindtap="switchCategory" data-category="{{item.name}}">
+      <view class="cat-icon-wrap" style="background: {{item.bg}}">
+        <text class="cat-emoji">{{item.icon}}</text>
+      </view>
+      <text class="cat-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 佛山名人堂 -->
+  <view class="famous-section">
+    <view class="famous-header">
+      <view class="famous-title-wrap">
+        <view class="famous-badge">佛山</view>
+        <text class="famous-title">名人堂</text>
+      </view>
+      <view class="famous-sub">传奇人物 · 佛山骄傲</view>
+    </view>
+    <view class="famous-grid">
+      <view class="famous-card" wx:for="{{famousFigures}}" wx:key="name" bindtap="onFigureTap" data-name="{{item.name}}" data-title="{{item.title}}">
+        <view class="famous-icon-wrap" style="background: {{item.bg}}; border: 2rpx solid {{item.border}}">
+          <image class="famous-icon" src="{{item.icon}}" mode="aspectFit"/>
+        </view>
+        <text class="famous-name">{{item.name}}</text>
+        <text class="famous-desc">{{item.title}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 限时秒杀 -->
+  <view class="flash-sale">
+    <view class="flash-header">
+      <view class="flash-left">
+        <text class="flash-title">限时秒杀</text>
+        <view class="flash-countdown">
+          <text class="countdown-block">{{countdown.h}}</text>
+          <text class="countdown-sep">:</text>
+          <text class="countdown-block">{{countdown.m}}</text>
+          <text class="countdown-sep">:</text>
+          <text class="countdown-block">{{countdown.s}}</text>
+        </view>
+      </view>
+      <view class="flash-more" bindtap="viewMore">
+        <text>更多</text>
+        <text class="arrow">></text>
+      </view>
+    </view>
+    <view class="flash-grid">
+      <view class="flash-item" wx:for="{{flashProducts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="flash-img-wrap">
+          <image class="flash-img" src="{{item.image}}" mode="aspectFill" lazy-load/>
+        </view>
+        <view class="flash-info">
+          <view class="flash-name">{{item.name}}</view>
+          <view class="flash-price-row">
+            <text class="flash-symbol">¥</text>
+            <text class="flash-price-num">{{item.price}}</text>
+            <text class="flash-original">¥{{item.originalPrice}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类标签栏 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{activeTab === 'sales' ? 'active' : ''}}" bindtap="switchTab" data-tab="sales">销量优先</view>
+    <view class="tab-item {{activeTab === 'new' ? 'active' : ''}}" bindtap="switchTab" data-tab="new">新品上架</view>
+    <view class="tab-item {{activeTab === 'price' ? 'active' : ''}}" bindtap="switchTab" data-tab="price">
+      价格
+      <text class="price-arrow {{priceOrder === 'asc' ? 'up' : 'down'}}"></text>
+    </view>
+  </view>
+
+  <!-- 商品瀑布流 -->
+  <view class="goods-waterfall">
+    <view class="goods-column">
+      <view class="goods-card" wx:for="{{leftProducts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="goods-img-wrap" style="height: {{item.imgHeight}}rpx">
+          <image class="goods-img" src="{{item.image}}" mode="widthFix" lazy-load bindload="onImgLoad" data-id="{{item.id}}"/>
+          <view class="goods-tag" wx:if="{{item.isHot}}">热销</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-title">{{item.name}}</view>
+          <view class="goods-shop">
+            <text class="shop-icon">🛡</text>
+            <text class="shop-name">{{item.brand}}</text>
+            <text class="goods-comments">{{item.comments}}+条评价</text>
+          </view>
+          <view class="goods-bottom">
+            <view class="goods-price-row">
+              <text class="goods-symbol">¥</text>
+              <text class="goods-price">{{item.price}}</text>
+              <text class="goods-original" wx:if="{{item.originalPrice > item.price}}">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="goods-sold">{{item.sales}}人已买</view>
+          </view>
+          <view class="goods-action">
+            <view class="goods-cart-btn" catchtap="addToCart" data-id="{{item.id}}">
+              <text class="cart-icon-text">+</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="goods-column">
+      <view class="goods-card" wx:for="{{rightProducts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="goods-img-wrap" style="height: {{item.imgHeight}}rpx">
+          <image class="goods-img" src="{{item.image}}" mode="widthFix" lazy-load bindload="onImgLoad" data-id="{{item.id}}"/>
+          <view class="goods-tag" wx:if="{{item.isHot}}">热销</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-title">{{item.name}}</view>
+          <view class="goods-shop">
+            <text class="shop-icon">🛡</text>
+            <text class="shop-name">{{item.brand}}</text>
+            <text class="goods-comments">{{item.comments}}+条评价</text>
+          </view>
+          <view class="goods-bottom">
+            <view class="goods-price-row">
+              <text class="goods-symbol">¥</text>
+              <text class="goods-price">{{item.price}}</text>
+              <text class="goods-original" wx:if="{{item.originalPrice > item.price}}">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="goods-sold">{{item.sales}}人已买</view>
+          </view>
+          <view class="goods-action">
+            <view class="goods-cart-btn" catchtap="addToCart" data-id="{{item.id}}">
+              <text class="cart-icon-text">+</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{products.length === 0 && !loading}}">
+    <image class="empty-icon" src="/images/icons/package.svg" mode="aspectFit"/>
+    <text class="empty-text">暂无商品</text>
+    <text class="empty-tip">换个关键词试试吧</text>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{products.length > 0}}">
+    <text wx:if="{{loading}}">加载中...</text>
+    <text wx:elif="{{noMore}}">- 没有更多了 -</text>
+  </view>
+
+  <!-- 悬浮购物车 -->
+  <view class="float-cart" bindtap="goToCart">
+    <image class="float-cart-icon" src="/images/icons/cart.svg" mode="aspectFit"/>
+    <view class="float-cart-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+  </view>
+
+  <!-- 回到顶部 -->
+  <view class="float-top" wx:if="{{showBackTop}}" bindtap="goTop">
+    <text>↑</text>
+  </view>
+</view>

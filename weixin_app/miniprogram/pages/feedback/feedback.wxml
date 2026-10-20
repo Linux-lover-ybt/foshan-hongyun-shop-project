@@ -1,0 +1,104 @@
+<!--pages/feedback/feedback.wxml-->
+<view class="page-container">
+  <!-- 顶部提示 -->
+  <view class="header-tip">
+    <view class="tip-icon">💡</view>
+    <view class="tip-text">您的反馈是我们改进的动力，感谢您的支持！</view>
+  </view>
+
+  <!-- 反馈类型选择 -->
+  <view class="section">
+    <view class="section-title">反馈类型</view>
+    <view class="type-list">
+      <view class="type-item {{activeType === 'bug' ? 'active' : ''}}" data-type="bug" bindtap="selectType">
+        <image class="type-icon" src="/images/icons/bug.svg" mode="aspectFit"></image>
+        <view class="type-name">功能异常</view>
+      </view>
+      <view class="type-item {{activeType === 'suggest' ? 'active' : ''}}" data-type="suggest" bindtap="selectType">
+        <image class="type-icon" src="/images/icons/suggest.svg" mode="aspectFit"></image>
+        <view class="type-name">建议反馈</view>
+      </view>
+      <view class="type-item {{activeType === 'complaint' ? 'active' : ''}}" data-type="complaint" bindtap="selectType">
+        <image class="type-icon" src="/images/icons/complaint.svg" mode="aspectFit"></image>
+        <view class="type-name">投诉举报</view>
+      </view>
+      <view class="type-item {{activeType === 'other' ? 'active' : ''}}" data-type="other" bindtap="selectType">
+        <image class="type-icon" src="/images/icons/other.svg" mode="aspectFit"></image>
+        <view class="type-name">其他问题</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 问题描述 -->
+  <view class="section">
+    <view class="section-title">
+      <text>问题描述</text>
+      <text class="required">*</text>
+    </view>
+    <view class="textarea-wrapper">
+      <textarea
+        class="content-input"
+        placeholder="请详细描述您遇到的问题或建议，以便我们更好地为您解决..."
+        placeholder-class="placeholder-style"
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="500"
+        auto-height
+      ></textarea>
+      <view class="word-count">{{content.length}}/500</view>
+    </view>
+  </view>
+
+  <!-- 图片上传 -->
+  <view class="section">
+    <view class="section-title">问题截图 <text class="optional">（选填）</text></view>
+    <view class="image-grid">
+      <view class="image-item" wx:for="{{images}}" wx:key="index">
+        <image src="{{item}}" mode="aspectFill" class="preview-img" bindtap="previewImage" data-src="{{item}}"></image>
+        <view class="delete-btn" catchtap="removeImage" data-index="{{index}}">
+          <text class="delete-icon">×</text>
+        </view>
+      </view>
+      <view class="add-image-btn" wx:if="{{images.length < maxImages}}" bindtap="chooseImage">
+        <view class="add-icon">+</view>
+        <view class="add-text">添加图片</view>
+      </view>
+    </view>
+    <view class="image-tip">最多可上传{{maxImages}}张截图，支持jpg、png格式</view>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="section">
+    <view class="section-title">联系方式 <text class="optional">（选填）</text></view>
+    <view class="input-wrapper">
+      <input
+        class="contact-input"
+        placeholder="请输入手机号或邮箱，方便我们回复您"
+        placeholder-class="placeholder-style"
+        value="{{contact}}"
+        bindinput="onContactInput"
+        maxlength="50"
+      />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn {{content.length > 0 ? 'active' : ''}}" bindtap="submitFeedback" disabled="{{submitting || content.length === 0}}">
+      <text wx:if="{{!submitting}}">提交反馈</text>
+      <text wx:else>提交中...</text>
+    </button>
+  </view>
+
+  <!-- 历史反馈入口 -->
+  <view class="history-entry" bindtap="goToHistory">
+    <view class="entry-left">
+      <text class="entry-icon">📋</text>
+      <text class="entry-text">我的反馈记录</text>
+    </view>
+    <view class="entry-right">
+      <text class="history-count" wx:if="{{historyCount > 0}}">{{historyCount}}条</text>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+</view>

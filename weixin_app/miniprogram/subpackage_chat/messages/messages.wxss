@@ -1,0 +1,549 @@
+page {
+  background-color: #ededed;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* 搜索栏 */
+.search-bar {
+  padding: 16rpx 24rpx;
+  background-color: #ededed;
+}
+
+.search-input-wrap {
+  background: #fff;
+  border-radius: 8rpx;
+  padding: 12rpx 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  margin-left: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 功能入口列表 */
+.func-list {
+  background: #fff;
+  margin-bottom: 16rpx;
+}
+
+.func-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 28rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.func-item:last-child {
+  border-bottom: none;
+}
+
+.func-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-right: 24rpx;
+}
+
+.func-svg {
+  width: 44rpx;
+  height: 44rpx;
+  filter: brightness(0) invert(1);
+}
+
+.friend-req-icon {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+.group-icon {
+  background: linear-gradient(135deg, #52c41a, #73d13d);
+}
+
+.badge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  font-size: 20rpx;
+  color: #fff;
+  background: #e54545;
+  border-radius: 16rpx;
+  padding: 0 8rpx;
+  box-sizing: border-box;
+}
+
+.func-info {
+  flex: 1;
+}
+
+.func-name {
+  font-size: 30rpx;
+  color: #333;
+  display: block;
+}
+
+.func-desc {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-top: 4rpx;
+}
+
+.func-arrow {
+  font-size: 28rpx;
+  color: #ccc;
+}
+
+.func-right {
+  display: flex;
+  align-items: center;
+}
+
+.func-badge {
+  min-width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  background: #e54545;
+  border-radius: 16rpx;
+  padding: 0 8rpx;
+  margin-right: 12rpx;
+}
+
+/* 通讯录功能入口 */
+.func-section {
+  background: #fff;
+  margin-bottom: 16rpx;
+}
+
+.new-friend-icon {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+.add-friend-icon {
+  background: linear-gradient(135deg, #1890ff, #40a9ff);
+}
+
+.group-icon-2 {
+  background: linear-gradient(135deg, #52c41a, #73d13d);
+}
+
+/* 消息列表 */
+.message-list {
+  flex: 1;
+  overflow: hidden;
+  padding-bottom: 120rpx;
+}
+
+.msg-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.msg-item:active {
+  background: #f5f5f5;
+}
+
+.msg-avatar-wrap {
+  position: relative;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.msg-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 12rpx;
+}
+
+.online-dot {
+  position: absolute;
+  bottom: 4rpx;
+  right: 4rpx;
+  width: 20rpx;
+  height: 20rpx;
+  background: #52c41a;
+  border-radius: 50%;
+  border: 3rpx solid #fff;
+}
+
+.msg-content {
+  flex: 1;
+  min-width: 0;
+  border-bottom: none;
+}
+
+.msg-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.msg-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.msg-time {
+  font-size: 22rpx;
+  color: #999;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.msg-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.msg-preview {
+  font-size: 26rpx;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: 16rpx;
+}
+
+.unread-badge {
+  min-width: 36rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  background: #e54545;
+  border-radius: 18rpx;
+  padding: 0 10rpx;
+  flex-shrink: 0;
+}
+
+/* 好友列表 */
+.friend-list {
+  flex: 1;
+  background: #fff;
+  padding-bottom: 120rpx;
+}
+
+.section-header {
+  padding: 10rpx 28rpx;
+  background: #ededed;
+  font-size: 24rpx;
+  color: #888;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 28rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  background: #fff;
+}
+
+.friend-item:active {
+  background: #f0f0f0;
+}
+
+.friend-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 10rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.friend-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.friend-name {
+  font-size: 30rpx;
+  color: #333;
+  display: block;
+}
+
+.friend-signature {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friend-arrow {
+  color: #ccc;
+  font-size: 28rpx;
+  margin-left: 16rpx;
+}
+
+/* 右侧字母索引 */
+.index-bar {
+  position: fixed;
+  right: 8rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 99;
+  padding: 10rpx 0;
+}
+
+.index-item {
+  width: 44rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
+  font-size: 20rpx;
+  color: #666;
+  border-radius: 18rpx;
+}
+
+.index-item.active {
+  color: #07c160;
+  font-weight: bold;
+  font-size: 26rpx;
+  background: rgba(7, 193, 96, 0.15);
+}
+
+/* 好友详情弹窗 */
+.friend-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.friend-modal-content {
+  width: 600rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.friend-modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50rpx 40rpx 30rpx;
+  background: linear-gradient(135deg, #07c160, #06ad56);
+}
+
+.friend-modal-avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 16rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.6);
+  margin-bottom: 20rpx;
+}
+
+.friend-modal-info {
+  text-align: center;
+}
+
+.friend-modal-name {
+  font-size: 36rpx;
+  color: #fff;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.friend-modal-uid {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.friend-modal-signature {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+}
+
+.friend-modal-actions {
+  display: flex;
+  padding: 30rpx 40rpx;
+  gap: 30rpx;
+}
+
+.friend-modal-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+  border-radius: 16rpx;
+}
+
+.chat-btn {
+  background: linear-gradient(135deg, #07c160, #06ad56);
+}
+
+.profile-btn {
+  background: linear-gradient(135deg, #1890ff, #40a9ff);
+}
+
+.btn-emoji {
+  font-size: 44rpx;
+  margin-bottom: 8rpx;
+}
+
+.btn-svg {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 8rpx;
+  filter: brightness(0) invert(1);
+}
+
+.btn-label {
+  font-size: 26rpx;
+  color: #fff;
+  font-weight: 500;
+}
+
+.friend-modal-close {
+  text-align: center;
+  padding: 24rpx;
+  font-size: 30rpx;
+  color: #999;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200rpx;
+}
+
+.empty-icon {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-svg {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.35;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+.empty-tip {
+  font-size: 26rpx;
+  color: #bbb;
+}
+
+/* 底部导航栏（类微信） */
+.bottom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #ddd;
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+}
+
+.tab-icon-wrap {
+  position: relative;
+}
+
+.tab-icon {
+  font-size: 44rpx;
+}
+
+.tab-svg {
+  width: 48rpx;
+  height: 48rpx;
+  opacity: 0.5;
+}
+
+.tab-svg-active {
+  opacity: 1;
+}
+
+.tab-icon-active {
+  transform: scale(1.15);
+}
+
+.tab-text {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.tab-item.active .tab-text {
+  color: #07c160;
+}
+
+.tab-badge {
+  position: absolute;
+  top: -4rpx;
+  right: -10rpx;
+  width: 18rpx;
+  height: 18rpx;
+  background: #e54545;
+  border-radius: 50%;
+}

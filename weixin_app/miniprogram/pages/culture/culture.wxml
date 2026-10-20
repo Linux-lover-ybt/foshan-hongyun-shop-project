@@ -1,0 +1,309 @@
+<!--culture.wxml - 工业级电商文创页-->
+<view class="page">
+  <!-- 顶部搜索栏 -->
+  <view class="search-header">
+    <view class="search-bar">
+      <view class="search-bar-inner">
+        <icon type="search" size="14" color="#999"/>
+        <input class="search-input" placeholder="搜索文创好物" placeholder-class="search-placeholder" confirm-type="search" bindconfirm="onSearch" bindinput="onSearchInput" bindfocus="onFocusSearch" bindblur="onBlurSearch" value="{{searchKey}}"/>
+        <view class="search-clear" wx:if="{{searchKey}}" bindtap="clearSearch">
+          <icon type="clear" size="14" color="#ccc"/>
+        </view>
+      </view>
+      <view class="search-btn" bindtap="doSearch">搜索</view>
+      <view class="header-cart" bindtap="goToCart">
+        <image class="cart-svg" src="/images/icons/cart.svg" mode="aspectFit"/>
+        <view class="header-cart-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+      </view>
+    </view>
+    <!-- 搜索历史 -->
+    <view class="search-history" wx:if="{{showSearchHistory && searchHistory.length > 0}}">
+      <view class="history-header">
+        <text class="history-title">搜索历史</text>
+        <text class="history-clear" bindtap="clearHistory">清空</text>
+      </view>
+      <view class="history-tags">
+        <view class="history-tag" wx:for="{{searchHistory}}" wx:key="*this" bindtap="tapHistoryItem" data-key="{{item}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <view class="swiper-wrap">
+    <swiper class="swiper" autoplay circular interval="4000" duration="500" indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff">
+      <swiper-item wx:for="{{banners}}" wx:key="index">
+        <view class="swiper-item" style="background: {{item.bg}}">
+          <view class="banner-content">
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 优惠券入口 -->
+  <view class="coupon-entry" bindtap="openCouponPopup">
+    <view class="coupon-entry-left">
+      <image class="coupon-icon" src="/images/icons/ticket.svg" mode="aspectFit"/>
+      <text class="coupon-text">领券中心 · 最多可省</text>
+      <text class="coupon-save">¥{{couponSaveAmount}}</text>
+    </view>
+    <view class="coupon-entry-right">
+      <text>立即领取</text>
+      <text class="coupon-arrow">></text>
+    </view>
+  </view>
+
+  <!-- 分类入口 -->
+  <view class="category-grid">
+    <view class="cat-item" wx:for="{{categoryIcons}}" wx:key="name" bindtap="switchCategory" data-category="{{item.name}}">
+      <view class="cat-icon-wrap {{currentCategory === item.name ? 'cat-active' : ''}}" style="background: {{item.bg}}">
+        <image class="cat-emoji" src="{{item.icon}}" mode="aspectFit"/>
+      </view>
+      <text class="cat-name {{currentCategory === item.name ? 'cat-name-active' : ''}}">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 限时秒杀 -->
+  <view class="flash-sale">
+    <view class="flash-header">
+      <view class="flash-left">
+        <image class="flash-icon" src="/images/icons/flash.svg" mode="aspectFit"/> 限时秒杀
+        <view class="flash-countdown">
+          <text class="countdown-block">{{countdown.h}}</text>
+          <text class="countdown-sep">:</text>
+          <text class="countdown-block">{{countdown.m}}</text>
+          <text class="countdown-sep">:</text>
+          <text class="countdown-block">{{countdown.s}}</text>
+        </view>
+      </view>
+      <view class="flash-more" bindtap="viewMore">
+        <text>更多</text>
+        <text class="arrow">></text>
+      </view>
+    </view>
+    <scroll-view class="flash-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="flash-list">
+        <view class="flash-item" wx:for="{{flashProducts}}" wx:key="id">
+          <view class="flash-img-wrap" bindtap="goToDetail" data-id="{{item.id}}">
+            <image class="flash-img" src="{{item.image}}" mode="aspectFill" lazy-load/>
+            <view class="flash-badge">7折</view>
+          </view>
+          <view class="flash-info">
+            <view class="flash-name">{{item.name}}</view>
+            <view class="flash-price-row">
+              <text class="flash-symbol">¥</text>
+              <text class="flash-price-num">{{item.flashPrice}}</text>
+              <text class="flash-original">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="flash-progress-wrap">
+              <view class="flash-progress" style="width: {{item.progress}}%"></view>
+            </view>
+            <view class="flash-buy-btn" catchtap="flashBuy" data-id="{{item.id}}">马上抢</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 热门排行 -->
+  <view class="hot-section">
+    <view class="section-header">
+      <view class="section-left">
+        <image class="section-icon" src="/images/icons/fire.svg" mode="aspectFit"/> 热门排行
+        <text class="section-sub">销量领先</text>
+      </view>
+      <view class="section-more" bindtap="viewAllHot">
+        <text>查看全部</text>
+        <text class="arrow">></text>
+      </view>
+    </view>
+    <scroll-view class="hot-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="hot-list">
+        <view class="hot-item" wx:for="{{hotProducts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <view class="hot-rank {{index < 3 ? 'rank-top' : ''}}">{{index + 1}}</view>
+          <view class="hot-img-wrap">
+            <image class="hot-img" src="{{item.image}}" mode="aspectFill" lazy-load/>
+          </view>
+          <view class="hot-info">
+            <view class="hot-name">{{item.name}}</view>
+            <view class="hot-price-row">
+              <text class="hot-symbol">¥</text>
+              <text class="hot-price">{{item.price}}</text>
+            </view>
+            <view class="hot-sales">{{item.sales}}人已购</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 新品推荐 -->
+  <view class="new-section">
+    <view class="section-header">
+      <view class="section-left">
+        <image class="section-icon" src="/images/icons/diamond2.svg" mode="aspectFit"/> 新品推荐
+        <text class="section-sub">最新上架</text>
+      </view>
+      <view class="section-more" bindtap="viewAllNew">
+        <text>查看全部</text>
+        <text class="arrow">></text>
+      </view>
+    </view>
+    <view class="new-grid">
+      <view class="new-item" wx:for="{{newProducts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="new-img-wrap">
+          <image class="new-img" src="{{item.image}}" mode="aspectFill" lazy-load/>
+          <view class="new-badge">NEW</view>
+        </view>
+        <view class="new-info">
+          <view class="new-name">{{item.name}}</view>
+          <view class="new-price-row">
+            <text class="new-symbol">¥</text>
+            <text class="new-price">{{item.price}}</text>
+            <text class="new-original">¥{{item.originalPrice}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分专区 -->
+  <view class="points-section">
+    <view class="points-banner">
+      <view class="points-info">
+        <image class="points-icon" src="/images/icons/diamond.svg" mode="aspectFit"/>
+        <text class="points-label">我的积分</text>
+        <text class="points-value">{{userPoints}}</text>
+      </view>
+      <view class="points-desc">积分可兑换指定商品</view>
+    </view>
+  </view>
+
+  <!-- 分类标签栏 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">综合</view>
+    <view class="tab-item {{activeTab === 'sales' ? 'active' : ''}}" bindtap="switchTab" data-tab="sales">销量</view>
+    <view class="tab-item {{activeTab === 'new' ? 'active' : ''}}" bindtap="switchTab" data-tab="new">新品</view>
+    <view class="tab-item {{activeTab === 'price' ? 'active' : ''}}" bindtap="switchTab" data-tab="price">
+      价格
+      <text class="price-arrow {{priceOrder === 'asc' ? 'up' : 'down'}}"></text>
+    </view>
+  </view>
+
+  <!-- 商品瀑布流 -->
+  <view class="goods-waterfall" wx:if="{{filteredProducts.length > 0}}">
+    <view class="goods-column">
+      <view class="goods-card" wx:for="{{leftProducts}}" wx:key="id">
+        <view class="goods-img-wrap" style="height: {{item.imgHeight}}rpx" bindtap="goToDetail" data-id="{{item.id}}">
+          <image class="goods-img" src="{{item.image}}" mode="widthFix" lazy-load bindload="onImgLoad" data-id="{{item.id}}"/>
+          <view class="goods-tag" wx:if="{{item.isHot}}">热销</view>
+          <view class="goods-tag-new" wx:if="{{item.id > 14}}">新品</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-title">{{item.name}}</view>
+          <view class="goods-tags-row" wx:if="{{item.tags && item.tags.length > 0}}">
+            <text class="goods-mini-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+          </view>
+          <view class="goods-shop">
+            <image class="shop-icon" src="/images/icons/shield.svg" mode="aspectFit"/>
+            <text class="shop-name">{{item.brand}}</text>
+            <text class="goods-comments">{{item.comments}}+评价</text>
+          </view>
+          <view class="goods-bottom">
+            <view class="goods-price-row">
+              <text class="goods-symbol">¥</text>
+              <text class="goods-price">{{item.price}}</text>
+              <text class="goods-original">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="goods-cart-btn" catchtap="addToCart" data-id="{{item.id}}">
+              <text class="cart-icon-text">+</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="goods-column">
+      <view class="goods-card" wx:for="{{rightProducts}}" wx:key="id">
+        <view class="goods-img-wrap" style="height: {{item.imgHeight}}rpx" bindtap="goToDetail" data-id="{{item.id}}">
+          <image class="goods-img" src="{{item.image}}" mode="widthFix" lazy-load bindload="onImgLoad" data-id="{{item.id}}"/>
+          <view class="goods-tag" wx:if="{{item.isHot}}">热销</view>
+          <view class="goods-tag-new" wx:if="{{item.id > 14}}">新品</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-title">{{item.name}}</view>
+          <view class="goods-tags-row" wx:if="{{item.tags && item.tags.length > 0}}">
+            <text class="goods-mini-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+          </view>
+          <view class="goods-shop">
+            <image class="shop-icon" src="/images/icons/shield.svg" mode="aspectFit"/>
+            <text class="shop-name">{{item.brand}}</text>
+            <text class="goods-comments">{{item.comments}}+评价</text>
+          </view>
+          <view class="goods-bottom">
+            <view class="goods-price-row">
+              <text class="goods-symbol">¥</text>
+              <text class="goods-price">{{item.price}}</text>
+              <text class="goods-original">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="goods-cart-btn" catchtap="addToCart" data-id="{{item.id}}">
+              <text class="cart-icon-text">+</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredProducts.length === 0}}">
+    <image class="empty-icon" src="/images/icons/package.svg" mode="aspectFit"/>
+    <text class="empty-text">暂无相关商品</text>
+    <text class="empty-tip">换个关键词试试吧</text>
+    <view class="empty-btn" bindtap="clearSearch">清除搜索</view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{filteredProducts.length > 0}}">
+    <text>- 没有更多了 -</text>
+  </view>
+
+  <!-- 悬浮购物车 -->
+  <view class="float-cart" bindtap="goToCart">
+    <image class="float-cart-icon" src="/images/icons/cart.svg" mode="aspectFit"/>
+    <view class="float-cart-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+  </view>
+
+  <!-- 回到顶部 -->
+  <view class="float-top" wx:if="{{showBackTop}}" bindtap="goTop">
+    <text>↑</text>
+  </view>
+
+  <!-- 优惠券弹窗 -->
+  <view class="coupon-popup-mask" wx:if="{{showCouponPopup}}" bindtap="closeCouponPopup"></view>
+  <view class="coupon-popup {{showCouponPopup ? 'coupon-popup-show' : ''}}">
+    <view class="coupon-popup-header">
+      <image class="coupon-popup-icon" src="/images/icons/ticket.svg" mode="aspectFit"/> 领券中心
+      <view class="coupon-popup-close" bindtap="closeCouponPopup">✕</view>
+    </view>
+    <scroll-view class="coupon-popup-list" scroll-y>
+      <view class="coupon-card" wx:for="{{coupons}}" wx:key="id">
+        <view class="coupon-left" style="background: {{item.color}}">
+          <text class="coupon-amount" wx:if="{{item.type === 'cash'}}">¥{{item.discount}}</text>
+          <text class="coupon-amount" wx:elif="{{item.type === 'shipping'}}">包邮</text>
+          <text class="coupon-amount" wx:elif="{{item.type === 'points'}}">{{item.discount}}倍</text>
+          <text class="coupon-condition" wx:if="{{item.threshold > 0}}">满{{item.threshold}}可用</text>
+          <text class="coupon-condition" wx:else>无门槛</text>
+        </view>
+        <view class="coupon-right">
+          <text class="coupon-name">{{item.name}}</text>
+          <text class="coupon-desc">{{item.desc}}</text>
+          <view class="coupon-claim-btn {{item.claimed ? 'claimed' : ''}}" bindtap="claimCoupon" data-id="{{item.id}}">
+            {{item.claimed ? '已领取' : '立即领取'}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

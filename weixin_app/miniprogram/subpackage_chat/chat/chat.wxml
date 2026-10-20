@@ -1,0 +1,86 @@
+<view class="page">
+  <!-- 消息列表 -->
+  <scroll-view class="message-scroll" scroll-y
+    scroll-into-view="{{scrollToMsg}}"
+    bindscrolltoupper="loadMoreMessages"
+    enhanced show-scrollbar="{{false}}">
+    
+    <!-- 消息气泡 -->
+    <view class="msg-bubble-wrap {{item.fromMe ? 'mine' : 'other'}}"
+      wx:for="{{messages}}" wx:key="_id" id="msg-{{index}}">
+      
+      <image class="msg-avatar" src="{{item.fromMe ? myAvatar : friendAvatar}}"
+        mode="aspectFill" lazy-load
+        binderror="onAvatarError" data-from-me="{{item.fromMe}}"/>
+
+      <view class="bubble {{item.fromMe ? 'bubble-mine' : 'bubble-other'}}">
+        <!-- 文字消息 -->
+        <text class="bubble-text" wx:if="{{item.type === 'text'}}">{{item.content}}</text>
+        
+        <!-- 图片消息 -->
+        <image class="bubble-img" wx:if="{{item.type === 'image'}}"
+          src="{{item.content}}" mode="widthFix"
+          bindtap="previewImage" data-src="{{item.content}}"/>
+      </view>
+
+      <!-- 发送状态 -->
+      <view class="send-status" wx:if="{{item.fromMe}}">
+        <text class="sending" wx:if="{{item.sending}}"><image class="status-svg" src="/images/icons/sending.svg" mode="aspectFit"/></text>
+        <text class="failed" wx:if="{{item.failed}}" catchtap="sendMessage"><image class="status-svg" src="/images/icons/warning.svg" mode="aspectFit"/></text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="chat-empty" wx:if="{{messages.length === 0 && !loadingMore}}">
+      <text class="chat-empty-text">暂无聊天记录，发送一条消息吧~</text>
+    </view>
+  </scroll-view>
+
+  <!-- 底部输入栏 -->
+  <view class="input-bar">
+    <view class="input-row">
+      <view class="voice-btn" bindtap="switchToVoice">
+        <image class="tool-svg" src="{{showVoice ? '/images/icons/keyboard.svg' : '/images/icons/mic.svg'}}" mode="aspectFit"/>
+      </view>
+      
+      <input class="msg-input" wx:if="{{!showVoice}}"
+        value="{{inputText}}"
+        placeholder="输入消息..."
+        adjust-position="{{true}}"
+        confirm-type="send"
+        bindconfirm="sendMessage"
+        bindinput="onInput"
+        focus="{{focusInput}}"/>
+      
+      <view class="voice-input-placeholder" wx:else bindlongpress="startRecord" bindtouchend="stopRecord">
+        <text>按住说话</text>
+      </view>
+
+      <view class="emoji-btn {{showEmoji ? 'active' : ''}}" bindtap="toggleEmoji">
+        <image class="tool-svg" src="/images/icons/emoji.svg" mode="aspectFit"/>
+      </view>
+
+      <view class="send-btn {{inputText.trim() ? '' : 'disabled'}}"
+        wx:if="{{!showVoice}}"
+        catchtap="sendMessage">
+        <text>发送</text>
+      </view>
+
+      <view class="more-btn" catchtap="chooseImage">
+        <text>+</text>
+      </view>
+    </view>
+
+    <!-- 表情面板 -->
+    <view class="emoji-panel" wx:if="{{showEmoji}}">
+      <scroll-view scroll-y class="emoji-scroll">
+        <view class="emoji-grid">
+          <view class="emoji-item" wx:for="{{emojiList}}" wx:key="*this"
+            bindtap="selectEmoji" data-emoji="{{item}}">
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,210 @@
+<!--spots.wxml-->
+<view class="page">
+  <!-- 顶部标题区 -->
+  <view class="header-section">
+    <view class="header-overlay">
+      <view class="header-title-wrap">
+        <view class="header-badge">佛山</view>
+        <text class="header-title">名人景点</text>
+      </view>
+      <text class="header-subtitle">16位名人故居/纪念馆 · 探寻佛山文脉</text>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar-wrap">
+    <view class="search-bar-inner">
+      <icon type="search" size="14" color="#999"/>
+      <input class="search-input" placeholder="搜索名人、景点、地址" placeholder-class="search-placeholder" confirm-type="search" bindinput="onSearchInput" value="{{searchKey}}"/>
+      <view class="search-clear" wx:if="{{searchKey}}" bindtap="clearSearch">
+        <icon type="clear" size="14" color="#ccc"/>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类筛选 -->
+  <view class="filter-tabs">
+    <view class="filter-tab {{activeFilter === item.key ? 'active' : ''}}" wx:for="{{filterTabs}}" wx:key="key" bindtap="switchFilter" data-key="{{item.key}}">
+      <text class="filter-icon">{{item.icon}}</text>
+      <text class="filter-label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <!-- 地图区域 -->
+  <view class="map-section">
+    <map
+      id="spotMap"
+      class="spot-map"
+      latitude="{{mapCenter.lat}}"
+      longitude="{{mapCenter.lng}}"
+      scale="{{mapScale}}"
+      markers="{{markers}}"
+      bindmarkertap="onMarkerTap"
+      show-location
+    ></map>
+  </view>
+
+  <!-- 选中景点信息卡 -->
+  <view class="selected-card" wx:if="{{selectedSpot}}" bindtap="goToSpot" data-index="{{0}}">
+    <view class="card-icon-wrap" style="background: {{selectedSpot.bg}}; border: 2rpx solid {{selectedSpot.color}};">
+      <image class="card-icon-img" src="{{icons[selectedSpot.iconKey]}}" mode="aspectFit"></image>
+    </view>
+    <view class="card-right">
+      <view class="card-top-row">
+        <text class="card-name">{{selectedSpot.name}}</text>
+        <text class="card-mbti" style="color: {{selectedSpot.color}}; border-color: {{selectedSpot.color}};">{{selectedSpot.mbti}}</text>
+      </view>
+      <text class="card-spot">{{selectedSpot.spotName}}</text>
+      <view class="card-address-row">
+        <text class="card-address-icon">📍</text>
+        <text class="card-address">{{selectedSpot.address}}</text>
+      </view>
+      <view class="card-tags">
+        <text class="card-tag" wx:for="{{selectedSpot.highlights}}" wx:key="*this">{{item}}</text>
+      </view>
+      <text class="card-recommend">💡 {{selectedSpot.recommend}}</text>
+    </view>
+    <view class="card-arrow">
+      <text class="arrow-icon">›</text>
+    </view>
+  </view>
+
+  <!-- 景点列表 -->
+  <view class="spot-list">
+    <view class="list-header">
+      <view class="list-title-wrap">
+        <text class="list-title">全部景点</text>
+        <text class="list-count">{{filteredSpots.length}}个</text>
+      </view>
+    </view>
+
+    <view class="spot-item" wx:for="{{filteredSpots}}" wx:key="mbti" bindtap="goToSpot" data-index="{{index}}" style="--accent: {{item.color}};">
+      <view class="item-left" style="background: {{item.bg}}; border: 2rpx solid {{item.color}};">
+        <image class="item-icon-img" src="{{icons[item.iconKey]}}" mode="aspectFit"></image>
+      </view>
+      <view class="item-right">
+        <view class="item-top">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-mbti" style="color: {{item.color}};">{{item.mbti}}</text>
+        </view>
+        <text class="item-tag" style="color: {{item.color}}; background: {{item.bg}};">{{item.tag}}</text>
+        <text class="item-spot-name">{{item.spotName}}</text>
+        <text class="item-address">📍 {{item.address}}</text>
+        <text class="item-recommend">💡 {{item.recommend}}</text>
+        <view class="item-highlights">
+          <text class="item-highlight" wx:for="{{item.highlights}}" wx:for-item="h" wx:key="*this" style="color: {{item.color}}; border-color: {{item.color}}20; background: {{item.color}}08;">{{h}}</text>
+        </view>
+      </view>
+      <view class="item-locate" catchtap="locateSpot" data-index="{{index}}">
+        <text class="locate-icon">📍</text>
+        <text class="locate-text">定位</text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredSpots.length === 0}}">
+      <text class="empty-icon">🔍</text>
+      <text class="empty-text">未找到匹配景点</text>
+      <text class="empty-tip">换个关键词试试吧</text>
+    </view>
+  </view>
+
+  <!-- 详情弹窗遮罩 -->
+  <view class="detail-mask" wx:if="{{showDetail}}" bindtap="onCloseDetail"></view>
+
+  <!-- 详情弹窗 -->
+  <view class="detail-popup {{showDetail ? 'show' : ''}}" wx:if="{{showDetail && currentSpot}}">
+    <!-- 弹窗头部 -->
+    <view class="detail-header" style="background: linear-gradient(135deg, {{currentSpot.color}}, {{currentSpot.color}}cc);">
+      <view class="detail-close" bindtap="onCloseDetail">
+        <text>✕</text>
+      </view>
+      <view class="detail-header-content">
+        <view class="detail-icon-wrap" style="background: {{currentSpot.bg}}; border: 3rpx solid rgba(255,255,255,0.4);">
+          <image class="detail-icon-img" src="{{icons[currentSpot.iconKey]}}" mode="aspectFit"/>
+        </view>
+        <text class="detail-name">{{currentSpot.name}}</text>
+        <view class="detail-tags">
+          <text class="detail-mbti">{{currentSpot.mbti}}</text>
+          <text class="detail-tag" style="background: rgba(255,255,255,0.2);">{{currentSpot.tag}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 弹窗内容 -->
+    <scroll-view class="detail-body" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- 景点名称 -->
+      <view class="detail-section">
+        <text class="section-title">景点信息</text>
+        <view class="detail-info-grid">
+          <view class="detail-info-item">
+            <text class="detail-info-label">景点</text>
+            <text class="detail-info-value" style="color: {{currentSpot.color}};">{{currentSpot.spotName}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">地址</text>
+            <text class="detail-info-value">{{currentSpot.address}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">开放</text>
+            <text class="detail-info-value">{{currentSpot.openTime}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">门票</text>
+            <text class="detail-info-value">{{currentSpot.ticket}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 景点简介 -->
+      <view class="detail-section">
+        <text class="section-title">景点简介</text>
+        <view class="detail-desc-box">
+          <text class="detail-full-desc">{{currentSpot.desc}}</text>
+        </view>
+      </view>
+
+      <!-- 打卡亮点 -->
+      <view class="detail-section">
+        <text class="section-title">打卡亮点</text>
+        <view class="detail-highlights">
+          <text class="highlight-pill" style="border-color: {{currentSpot.color}}; color: {{currentSpot.color}};"
+                wx:for="{{currentSpot.highlights}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- 游玩贴士 -->
+      <view class="detail-section">
+        <text class="section-title">游玩贴士</text>
+        <view class="detail-tips-list">
+          <view class="tip-item" wx:for="{{currentSpot.tips}}" wx:key="*this" style="border-left-color: {{currentSpot.color}};">
+            <text class="tip-dot" style="background: {{currentSpot.color}};"></text>
+            <text class="tip-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 推荐语 -->
+      <view class="detail-section">
+        <text class="section-title">推荐理由</text>
+        <view class="detail-recommend-box" style="background: {{currentSpot.bg}};">
+          <text class="detail-recommend-text" style="color: {{currentSpot.color}};">💡 {{currentSpot.recommend}}</text>
+        </view>
+      </view>
+
+      <!-- 底部操作按钮 -->
+      <view class="detail-actions">
+        <view class="action-btn action-navigate" style="background: linear-gradient(135deg, {{currentSpot.color}}, {{currentSpot.color}}cc);" bindtap="navigateToSpot">
+          <text class="action-icon">🧭</text>
+          <text class="action-text">导航前往</text>
+        </view>
+        <view class="action-btn action-figure" bindtap="goToFigure">
+          <text class="action-icon">👤</text>
+          <text class="action-text">查看名人</text>
+        </view>
+      </view>
+
+      <view class="detail-bottom-space"></view>
+    </scroll-view>
+  </view>
+</view>

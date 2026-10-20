@@ -1,0 +1,154 @@
+<!--forum.wxml-->
+<view class="container">
+  <!-- 浏览任务进度提示 -->
+  <view class="task-progress" wx:if="{{fromTask && !taskCompleted}}">
+    <view class="progress-content">
+      <text class="progress-icon">⏱️</text>
+      <text class="progress-text">浏览进度：{{browseSeconds}}/10秒</text>
+    </view>
+  </view>
+
+  <!--红色基地标题区域-->
+  <view class="header-section">
+    <view class="header-title">内容分享</view>
+    <view class="header-subtitle">分享交流，共同成长</view>
+  </view>
+  <!--板块入口区域-->
+  <view class="section-entrances">
+    <view class="entrance video-entrance" bindtap="goToVideoPage">
+      <text class="icon">📹</text>
+      <text class="label">发布短视频</text>
+    </view>
+    <view class="entrance post-entrance" bindtap="goToPostPage">
+      <text class="icon">🗣️</text>
+      <text class="label">发帖/浏览讨论</text>
+    </view>
+    <view class="entrance friend-entrance" bindtap="goToAddFriend">
+      <text class="icon">➕</text>
+      <text class="label">添加好友</text>
+    </view>
+  </view>
+
+  <!-- 管理员上传视频区域 -->
+  <view class="upload-section" wx:if="{{userInfo.role === 'red_base' || userInfo.role === 'admin'}}">
+    <view class="section-title">上传红色视频</view>
+    <input class="input-field" placeholder="输入视频标题" bindinput="onUploadTitleInput"/>
+    <textarea class="textarea-field" placeholder="输入视频描述" bindinput="onUploadDescInput"></textarea>
+    <view class="video-preview" wx:if="{{tempVideoPath}}">
+      <video class="preview-video" src="{{tempVideoPath}}" controls></video>
+      <view class="remove-video-btn" bindtap="removeChosenVideo">×</view>
+    </view>
+    <button class="upload-btn" bindtap="chooseAndUploadVideo">选择并上传视频</button>
+  </view>
+
+  <!--管理员视频区域-->
+  <view class="admin-videos-section">
+    <view class="section-title">红色文化学习</view>
+    <view class="video-list">
+      <view class="video-item" wx:for="{{adminVideos}}" wx:key="id">
+        <view class="video-info">
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-desc">{{item.description}}</view>
+          <view class="video-meta">
+            <text class="meta-item">📅 {{item.time}}</text>
+            <text class="meta-item">👁️ {{item.views}}次观看</text>
+          </view>
+        </view>
+        <view class="video-action">
+          <view class="watch-btn" bindtap="watchVideo" data-id="{{item.id}}" data-index="{{index}}">
+            <text class="btn-icon">▶️</text>
+            <text class="btn-text">{{item.watched ? '已观看' : '观看'}}</text>
+          </view>
+          <view class="points-reward" wx:if="{{item.watched && item.pointsEarned}}">
+            <text class="reward-icon">🎁</text>
+            <text class="reward-text">+5积分</text>
+          </view>
+          <view class="points-cost" wx:if="{{!item.watched}}">
+            <text class="cost-icon">💰</text>
+            <text class="cost-text">30积分</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!--用户视频区域-->
+  <view class="user-videos-section">
+    <view class="section-header">
+      
+      <view class="header-actions">
+        <!-- hidden, replaced by section entrances -->
+        <!-- keep for fallback if needed -->
+        <view class="admin-btn" bindtap="approveAllVideos" wx:if="{{userVideos.length > 0}}">
+          <text class="admin-icon">✅</text>
+          <text class="admin-text">审核全部</text>
+        </view>
+      </view>
+    </view>
+    <view class="video-list">
+      <view class="video-item user-video" wx:for="{{userVideos}}" wx:key="id">
+        <view class="video-info">
+          <view class="video-title">{{item.title}}</view>
+          <view class="video-desc">{{item.description}}</view>
+          <view class="video-meta">
+            <text class="meta-item">👤 {{item.username}}</text>
+            <text class="meta-item">📅 {{item.time}}</text>
+          </view>
+          <view class="video-status status-{{item.status}}">
+            <text class="status-text">{{item.statusText}}</text>
+          </view>
+        </view>
+        <view class="video-action">
+          <view class="watch-btn" bindtap="watchUserVideo" data-id="{{item.id}}" data-index="{{index}}" wx:if="{{item.status === 'approved'}}">
+            <text class="btn-icon">▶️</text>
+            <text class="btn-text">{{item.watched ? '已观看' : '观看'}}</text>
+          </view>
+          <view class="points-reward" wx:if="{{item.status === 'approved' && item.watched && item.pointsEarned}}">
+            <text class="reward-icon">🎁</text>
+            <text class="reward-text">+5积分</text>
+          </view>
+          <view class="points-cost" wx:if="{{item.status === 'approved' && !item.watched}}">
+            <text class="cost-icon">💰</text>
+            <text class="cost-text">30积分</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!--发布视频弹窗-->
+  <view class="upload-modal" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideUploadModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-title">发布视频</view>
+        <view class="modal-close" bindtap="hideUploadModal">✕</view>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <view class="form-label">视频标题</view>
+          <input class="form-input" placeholder="请输入视频标题" value="{{uploadTitle}}" bindinput="onTitleInput" maxlength="50" />
+        </view>
+        <view class="form-item">
+          <view class="form-label">视频描述</view>
+          <textarea class="form-textarea" placeholder="请输入视频描述" value="{{uploadDesc}}" bindinput="onDescInput" maxlength="200"></textarea>
+        </view>
+        <view class="form-item">
+          <view class="form-label">选择视频</view>
+          <view class="video-preview" wx:if="{{uploadVideo}}">
+            <video class="preview-video" src="{{uploadVideo}}" controls></video>
+            <view class="preview-remove" bindtap="removeVideo">✕</view>
+          </view>
+          <view class="upload-placeholder" bindtap="chooseVideo" wx:else>
+            <text class="placeholder-icon">📹</text>
+            <text class="placeholder-text">点击选择视频</text>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="cancel-btn" bindtap="hideUploadModal">取消</view>
+        <view class="submit-btn" bindtap="submitVideo">提交审核</view>
+      </view>
+    </view>
+  </view>
+</view>

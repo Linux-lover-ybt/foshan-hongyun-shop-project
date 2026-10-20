@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 李小龙 - 武术传奇，截拳道姿态 -->
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#FF8C00"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg4)"/>
+  <!-- 身体/功夫上衣 -->
+  <path d="M42 48 Q42 44 48 42 L54 40 Q60 38 66 40 L72 42 Q78 44 78 48 L76 90 Q60 94 44 90 Z" fill="#111"/>
+  <!-- 肌肉线条 -->
+  <path d="M52 52 L60 60 L68 52" fill="none" stroke="#FFD700" stroke-width="1.5" opacity="0.5"/>
+  <!-- 头部 -->
+  <circle cx="60" cy="30" r="16" fill="#D4A574"/>
+  <!-- 经典发型 -->
+  <path d="M44 26 Q44 12 60 10 Q76 12 76 26 Q74 18 60 16 Q46 18 44 26Z" fill="#111"/>
+  <!-- 标志性侧踢姿势 - 腿 -->
+  <path d="M48 90 L44 96" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+  <path d="M72 78 L96 58" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+  <!-- 截拳道手势 -->
+  <path d="M42 56 L18 44" stroke="#D4A574" stroke-width="4" stroke-linecap="round"/>
+  <path d="M78 52 L92 44" stroke="#D4A574" stroke-width="4" stroke-linecap="round"/>
+  <!-- 眼睛 - 凌厉目光 -->
+  <path d="M52 28 L58 26" stroke="#111" stroke-width="2"/>
+  <path d="M62 26 L68 28" stroke="#111" stroke-width="2"/>
+  <circle cx="55" cy="28" r="1.5" fill="#111"/>
+  <circle cx="65" cy="28" r="1.5" fill="#111"/>
+  <!-- 龙纹装饰 -->
+  <path d="M14 100 Q30 90 46 100 Q60 108 76 100 Q92 92 108 100" fill="none" stroke="#FF4500" stroke-width="2" opacity="0.7"/>
+</svg>

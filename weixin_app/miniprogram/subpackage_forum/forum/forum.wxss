@@ -1,0 +1,480 @@
+/**forum.wxss**/
+
+page {
+  background-color: #f6f6f6;
+  height: 100vh;
+}
+
+.container {
+  font-family: PingFang SC;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f6f6f6;
+  padding-bottom: 120rpx;
+}
+
+/* 浏览任务进度提示 */
+.task-progress {
+  position: fixed;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.progress-content {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  padding: 15rpx 30rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 4rpx 12rpx rgba(229, 69, 69, 0.4);
+}
+
+.progress-icon {
+  font-size: 32rpx;
+}
+
+.progress-text {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/*红色基地标题区域*/
+.header-section {
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  padding: 60rpx 40rpx 40rpx;
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 15rpx;
+}
+
+.header-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/*管理员视频区域*/
+.admin-videos-section {
+  padding: 30rpx 40rpx;
+}
+
+/*板块入口*/
+.section-entrances {
+  display: flex;
+  justify-content: space-around;
+  padding: 30rpx 0;
+  background-color: #fafafa;
+  margin: 0 -40rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+}
+
+.entrance {
+  width: 200rpx;
+  height: 120rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.entrance .icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.entrance .label {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.friend-entrance {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30rpx;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10rpx;
+}
+
+.admin-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+  padding: 12rpx 20rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(82, 196, 26, 0.3);
+}
+
+.admin-icon {
+  font-size: 24rpx;
+}
+
+.admin-text {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-left: 10rpx;
+  border-left: 6rpx solid #e54545;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  padding: 15rpx 25rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(229, 69, 69, 0.3);
+}
+
+.upload-icon {
+  font-size: 32rpx;
+}
+
+.upload-text {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/*视频列表*/
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.video-item {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.video-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.video-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.video-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-meta {
+  display: flex;
+  gap: 20rpx;
+}
+
+.meta-item {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.video-action {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.watch-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  padding: 15rpx 25rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(229, 69, 69, 0.3);
+}
+
+.btn-icon {
+  font-size: 28rpx;
+}
+
+.btn-text {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.points-reward {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  background-color: #fffbe6;
+  padding: 10rpx 20rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #ffe58f;
+}
+
+.reward-icon {
+  font-size: 28rpx;
+}
+
+.reward-text {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fa8c16;
+}
+
+/*用户视频区域*/
+.user-videos-section {
+  padding: 30rpx 40rpx;
+}
+
+.user-video {
+  background-color: #f9f9f9;
+}
+
+.video-status {
+  margin-top: 15rpx;
+  padding: 8rpx 15rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.status-pending {
+  background-color: #fffbe6;
+  color: #fa8c16;
+}
+
+.status-approved {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.status-rejected {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+}
+
+.status-text {
+  font-weight: 500;
+}
+
+/*发布视频弹窗*/
+.upload-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 32rpx 32rpx 0 0;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx 40rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 40rpx;
+  color: #999;
+  padding: 10rpx;
+}
+
+.modal-body {
+  flex: 1;
+  padding: 30rpx 40rpx;
+  overflow-y: auto;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.form-input {
+  width: 100%;
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1rpx solid #e5e5e5;
+  border-radius: 8rpx;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 150rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1rpx solid #e5e5e5;
+  border-radius: 8rpx;
+  resize: none;
+}
+
+.video-preview {
+  position: relative;
+  width: 100%;
+  height: 400rpx;
+  background-color: #000;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.preview-video {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-remove {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  width: 50rpx;
+  height: 50rpx;
+  background-color: #e54545;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.upload-placeholder {
+  width: 100%;
+  height: 400rpx;
+  background-color: #f9f9f9;
+  border: 2rpx dashed #e5e5e5;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15rpx;
+}
+
+.placeholder-icon {
+  font-size: 80rpx;
+}
+
+.placeholder-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.modal-footer {
+  padding: 20rpx 40rpx;
+  border-top: 1rpx solid #f0f0f0;
+  display: flex;
+  gap: 20rpx;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 20rpx;
+  background-color: #f0f0f0;
+  border-radius: 50rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.submit-btn {
+  flex: 1;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #e54545 0%, #ff6b6b 100%);
+  border-radius: 50rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #ffffff;
+}

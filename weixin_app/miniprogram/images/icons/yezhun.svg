@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs><linearGradient id="bg_yz" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2ECC71"/><stop offset="100%" style="stop-color:#58D68D"/></linearGradient></defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg_yz)"/>
+  <circle cx="60" cy="38" r="17" fill="#FDFBD0"/>
+  <path d="M44 32 Q48 20 60 18 Q72 20 76 32 Q74 24 60 22 Q46 24 44 32Z" fill="#333"/>
+  <path d="M40 56 Q40 50 46 48 L54 46 Q60 44 66 46 L74 48 Q80 50 80 56 L78 99 Q60 104 42 99Z" fill="#1D8348"/>
+  <path d="M50 48 L56 58 L60 52 L64 58 L70 48" fill="none" stroke="#F5F5DC" stroke-width="2"/>
+  <!-- 绗戝鏇存槑鏄?-->
+  <path d="M52 65 Q60 70 68 65" fill="none" stroke="#333" stroke-width="1.5"/>
+  <circle cx="53" cy="36" r="2" fill="#333"/><circle cx="67" cy="36" r="2" fill="#333"/>
+  <!-- 娲绘臣鐨勬墜鍔?-->
+  <path d="M36 62 L22 72" stroke="#FDFBD0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M84 60 L98 50" stroke="#FDFBD0" stroke-width="4" stroke-linecap="round"/>
+</svg>

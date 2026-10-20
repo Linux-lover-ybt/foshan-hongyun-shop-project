@@ -1,0 +1,104 @@
+<!-- pages/cart/cart.wxml - 工业级购物车 -->
+<view class="page">
+  <!-- 空状态 -->
+  <view class="empty-cart" wx:if="{{cartList.length === 0}}">
+    <text class="empty-icon">🛒</text>
+    <text class="empty-text">购物车还是空的</text>
+    <text class="empty-tip">快去挑选心仪的商品吧</text>
+    <view class="go-shop-btn" bindtap="goShopping">去逛逛</view>
+  </view>
+
+  <!-- 购物车列表 -->
+  <view class="cart-section" wx:else>
+    <!-- 顶部操作栏 -->
+    <view class="cart-header">
+      <text class="cart-title">购物车({{cartList.length}})</text>
+      <text class="cart-edit" bindtap="toggleEdit">{{editing ? '完成' : '编辑'}}</text>
+    </view>
+
+    <!-- 优惠券提示 -->
+    <view class="coupon-tip" wx:if="{{myCoupons.length > 0}}">
+      <text class="coupon-tip-icon">🎫</text>
+      <text class="coupon-tip-text">您有{{myCoupons.length}}张优惠券可用，结算时自动抵扣</text>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="cart-list">
+      <view class="cart-item {{item.selected ? 'item-selected' : ''}}" wx:for="{{cartList}}" wx:key="id">
+        <!-- 选择框 -->
+        <view class="item-check" bindtap="toggleSelect" data-index="{{index}}">
+          <view class="check-box {{item.selected ? 'checked' : ''}}">
+            <text wx:if="{{item.selected}}">✓</text>
+          </view>
+        </view>
+
+        <!-- 商品图片 -->
+        <view class="item-image" bindtap="goToDetail" data-id="{{item.id}}">
+          <image src="{{item.image}}" mode="aspectFill"/>
+        </view>
+
+        <!-- 商品信息 -->
+        <view class="item-info">
+          <view class="item-name" bindtap="goToDetail" data-id="{{item.id}}">{{item.name}}</view>
+          <view class="item-spec" wx:if="{{item.specText}}">规格: {{item.specText}}</view>
+          <view class="item-bottom">
+            <view class="item-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+            </view>
+            <view class="item-quantity">
+              <view class="quantity-btn" catchtap="decreaseQuantity" data-index="{{index}}">-</view>
+              <input class="quantity-input" type="number" value="{{item.quantity}}" bindinput="inputQuantity" data-index="{{index}}"/>
+              <view class="quantity-btn" catchtap="increaseQuantity" data-index="{{index}}">+</view>
+            </view>
+          </view>
+          <view class="item-original" wx:if="{{item.savedAmount > 0}}">
+            原价 ¥{{item.originalPrice}} · 已省 ¥{{item.savedAmount}}
+          </view>
+        </view>
+
+        <!-- 删除按钮 -->
+        <view class="item-delete" catchtap="deleteItem" data-index="{{index}}">
+          <text>✕</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 推荐商品 -->
+    <view class="recommend-section">
+      <view class="recommend-header">
+        <text class="recommend-title">猜你喜欢</text>
+      </view>
+      <view class="recommend-tip">去商城发现更多好物</view>
+      <view class="recommend-btn" bindtap="goShopping">逛一逛</view>
+    </view>
+  </view>
+
+  <!-- 底部结算栏 -->
+  <view class="bottom-bar" wx:if="{{cartList.length > 0}}">
+    <view class="all-check" bindtap="toggleAllSelect">
+      <view class="check-box {{isAllSelected ? 'checked' : ''}}">
+        <text wx:if="{{isAllSelected}}">✓</text>
+      </view>
+      <text class="all-check-text">全选</text>
+    </view>
+
+    <view class="total-info" wx:if="{{!editing}}">
+      <view class="total-price-row">
+        <text class="total-label">合计:</text>
+        <text class="total-symbol">¥</text>
+        <text class="total-value">{{totalPrice}}</text>
+      </view>
+      <view class="saved-info" wx:if="{{savedPrice > 0}}">
+        已省 ¥{{savedPrice}}
+      </view>
+    </view>
+
+    <view class="bar-action-btn" wx:if="{{editing}}" bindtap="batchDelete">
+      删除({{selectedCount}})
+    </view>
+    <view class="bar-action-btn settle-btn {{selectedCount === 0 ? 'disabled' : ''}}" wx:else bindtap="goToSettle">
+      结算({{selectedCount}})
+    </view>
+  </view>
+</view>

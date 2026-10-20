@@ -1,0 +1,171 @@
+<!-- pages/product-detail/product-detail.wxml -->
+<view class="page" wx:if="{{product}}">
+  <!-- 商品图片轮播 -->
+  <view class="img-section">
+    <swiper class="img-swiper" indicator-dots indicator-color="rgba(255,255,255,0.4)" indicator-active-color="#fff" bindchange="onSwiperChange" current="{{currentImgIndex}}">
+      <swiper-item wx:for="{{productImageList}}" wx:key="index">
+        <image class="swiper-img" src="{{item}}" mode="aspectFill"/>
+      </swiper-item>
+    </swiper>
+    <view class="img-counter">{{currentImgIndex + 1}}/{{productImageCount}}</view>
+  </view>
+
+  <!-- 价格信息 -->
+  <view class="price-section">
+    <view class="price-row">
+      <text class="price-symbol">¥</text>
+      <text class="price-value">{{product.price}}</text>
+      <text class="price-original">¥{{product.originalPrice}}</text>
+      <view class="price-discount" wx:if="{{product.discountText}}">
+        {{product.discountText}}
+      </view>
+    </view>
+    <view class="price-info">
+      <text class="sales-info">已售{{product.sales}}件</text>
+      <text class="stock-info">库存{{product.stock}}件</text>
+    </view>
+    <view class="tags-row" wx:if="{{product.tags && product.tags.length > 0}}">
+      <text class="product-tag" wx:for="{{product.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+    </view>
+  </view>
+
+  <!-- 商品名称 -->
+  <view class="name-section">
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-desc">{{product.description}}</text>
+  </view>
+
+  <!-- 规格选择 -->
+  <view class="spec-entry" bindtap="openSpecPopup" data-mode="cart" wx:if="{{product.specs && product.specs.length > 0}}">
+    <text class="spec-label">规格</text>
+    <text class="spec-value">{{selectedSpecsText || '请选择规格'}}</text>
+    <text class="spec-arrow">></text>
+  </view>
+
+  <!-- 积分信息 -->
+  <view class="points-info-row">
+    <text class="points-icon">💎</text>
+    <text class="points-text">积分兑换价：{{product.pointsPrice}}积分</text>
+    <text class="points-earn">购买可获{{product.earnPoints}}积分</text>
+  </view>
+
+  <!-- 保障 -->
+  <view class="guarantee-row">
+    <view class="guarantee-item">
+      <text class="guarantee-icon">✓</text>
+      <text>正品保障</text>
+    </view>
+    <view class="guarantee-item">
+      <text class="guarantee-icon">✓</text>
+      <text>7天退换</text>
+    </view>
+    <view class="guarantee-item">
+      <text class="guarantee-icon">✓</text>
+      <text>极速发货</text>
+    </view>
+    <view class="guarantee-item">
+      <text class="guarantee-icon">✓</text>
+      <text>售后无忧</text>
+    </view>
+  </view>
+
+  <!-- 详情Tab -->
+  <view class="detail-tabs">
+    <view class="detail-tab {{tabActive === 'detail' ? 'active' : ''}}" bindtap="switchTab" data-tab="detail">商品详情</view>
+    <view class="detail-tab {{tabActive === 'reviews' ? 'active' : ''}}" bindtap="switchTab" data-tab="reviews">用户评价({{productReviewCount}})</view>
+  </view>
+
+  <!-- 商品详情 -->
+  <view class="detail-content" wx:if="{{tabActive === 'detail'}}">
+    <view class="detail-card">
+      <view class="detail-row">
+        <text class="detail-label">品牌</text>
+        <text class="detail-val">{{product.brand}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">产地</text>
+        <text class="detail-val">{{product.origin}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">分类</text>
+        <text class="detail-val">{{product.category}}</text>
+      </view>
+    </view>
+    <view class="detail-desc-card">
+      <text class="desc-title">商品介绍</text>
+      <text class="desc-content">{{product.detail}}</text>
+    </view>
+  </view>
+
+  <!-- 用户评价 -->
+  <view class="reviews-content" wx:if="{{tabActive === 'reviews'}}">
+    <view class="review-item" wx:for="{{product.reviews || []}}" wx:key="index">
+      <view class="review-header">
+        <text class="review-avatar">{{item.avatar}}</text>
+        <text class="review-user">{{item.user}}</text>
+        <view class="review-stars">
+          <text class="star" wx:for="{{5}}" wx:for-item="s" wx:key="*this">{{s < item.rating ? '★' : '☆'}}</text>
+        </view>
+        <text class="review-time">{{item.time}}</text>
+      </view>
+      <text class="review-content">{{item.content}}</text>
+    </view>
+    <view class="no-reviews" wx:if="{{!product.reviews || product.reviews.length === 0}}">
+      <text>暂无评价</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="bar-icon-btn" bindtap="toggleFavorite">
+      <text class="bar-icon {{isFavorite ? 'favorited' : ''}}">{{isFavorite ? '❤️' : '🤍'}}</text>
+      <text class="bar-icon-text">收藏</text>
+    </view>
+    <view class="bar-icon-btn" bindtap="goToCart">
+      <text class="bar-icon">🛒</text>
+      <view class="bar-cart-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+      <text class="bar-icon-text">购物车</text>
+    </view>
+    <view class="bar-btn cart-btn" bindtap="openSpecPopup" data-mode="cart">加入购物车</view>
+    <view class="bar-btn buy-btn" bindtap="openSpecPopup" data-mode="buy">立即购买</view>
+  </view>
+
+  <!-- 规格弹窗 -->
+  <view class="spec-mask" wx:if="{{showSpecPopup}}" bindtap="closeSpecPopup"></view>
+  <view class="spec-popup {{showSpecPopup ? 'spec-popup-show' : ''}}">
+    <view class="spec-popup-header">
+      <view class="spec-product-info">
+        <image class="spec-product-img" src="{{product.image}}" mode="aspectFill"/>
+        <view class="spec-product-detail">
+          <text class="spec-product-price">¥{{product.price}}</text>
+          <text class="spec-product-stock">库存: {{product.stock}}</text>
+          <text class="spec-product-selected" wx:if="{{specText}}">已选: {{specText}}</text>
+        </view>
+      </view>
+      <view class="spec-close" bindtap="closeSpecPopup">✕</view>
+    </view>
+    <scroll-view class="spec-list" scroll-y>
+      <view class="spec-group" wx:for="{{product.specs}}" wx:key="name">
+        <text class="spec-group-name">{{item.name}}</text>
+        <view class="spec-options">
+          <view class="spec-option {{selectedSpecs[item.name] === val ? 'spec-option-active' : ''}}"
+            wx:for="{{item.values}}" wx:for-item="val" wx:key="*this"
+            bindtap="selectSpec" data-name="{{item.name}}" data-value="{{val}}">
+            {{val}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="spec-qty">
+      <text class="qty-label">数量</text>
+      <view class="qty-control">
+        <view class="qty-btn" bindtap="decreaseQty">-</view>
+        <input class="qty-input" type="number" value="{{quantity}}" bindinput="inputQty"/>
+        <view class="qty-btn" bindtap="increaseQty">+</view>
+      </view>
+    </view>
+    <view class="spec-confirm-btn" bindtap="confirmSpec">
+      {{specMode === 'cart' ? '加入购物车' : '立即购买'}}
+    </view>
+  </view>
+</view>

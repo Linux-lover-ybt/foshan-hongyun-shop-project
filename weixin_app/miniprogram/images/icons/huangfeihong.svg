@@ -1,0 +1,15 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs><linearGradient id="bg_hfh" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#E67E22"/><stop offset="100%" style="stop-color:#F39C12"/></linearGradient></defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg_hfh)"/>
+  <circle cx="60" cy="36" r="18" fill="#FDFBD0"/>
+  <ellipse cx="60" cy="20" rx="13" ry="8" fill="#333"/>
+  <path d="M36 54 Q36 50 42 48 L54 46 Q60 44 66 46 L78 48 Q84 50 84 54 L80 100 Q60 106 40 100Z" fill="#935116"/>
+  <!-- 鏃犲奖鑴氬姩浣?-->
+  <path d="M42 95 L30 108" stroke="#FDFBD0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M55 96 L50 112" stroke="#FDFBD0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M68 96 L75 110" stroke="#FDFBD0" stroke-width="5" stroke-linecap="round"/>
+  <!-- 鎷冲ご濮垮娍 -->
+  <path d="M32 65 L18 55" stroke="#FDFBD0" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="53" cy="33" r="2" fill="#333"/><circle cx="67" cy="33" r="2" fill="#333"/>
+  <path d="M56 43 Q60 48 64 43" fill="none" stroke="#333" stroke-width="1"/>
+</svg>

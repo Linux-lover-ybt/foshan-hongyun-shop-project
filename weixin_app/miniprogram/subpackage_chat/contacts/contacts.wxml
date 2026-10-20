@@ -1,0 +1,87 @@
+<view class="page">
+  <!-- 顶部搜索 + 添加好友 -->
+  <view class="header">
+    <view class="search-bar" bindtap="goToAddFriend">
+      <icon type="search" size="14" color="#999"/>
+      <text class="search-placeholder">搜索 / 添加好友</text>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="func-section">
+    <view class="func-item" bindtap="goToFriendRequests">
+      <view class="func-icon new-friend-icon">
+        <image class="func-svg" src="/images/icons/user-add.svg" mode="aspectFit"/>
+      </view>
+      <text class="func-name">新的朋友</text>
+      <view class="func-right">
+        <text class="badge" wx:if="{{requestCount > 0}}">{{requestCount}}</text>
+        <text class="arrow">></text>
+      </view>
+    </view>
+    <view class="func-item" bindtap="goToGroupList">
+      <view class="func-icon group-icon">
+        <image class="func-svg" src="/images/icons/group.svg" mode="aspectFit"/>
+      </view>
+      <text class="func-name">群聊</text>
+      <view class="func-right"><text class="arrow">></text></view>
+    </view>
+    <view class="func-item" bindtap="goToTags">
+      <view class="func-icon tag-icon">
+        <image class="func-svg" src="/images/icons/note.svg" mode="aspectFit"/>
+      </view>
+      <text class="func-name">标签</text>
+      <view class="func-right"><text class="arrow">></text></view>
+    </view>
+    <view class="func-item" bindtap="goToOfficialAccounts">
+      <view class="func-icon oa-icon">
+        <image class="func-svg" src="/images/icons/bell.svg" mode="aspectFit"/>
+      </view>
+      <text class="func-name">公众号</text>
+      <view class="func-right"><text class="arrow">></text></view>
+    </view>
+  </view>
+
+  <!-- 好友列表（带字母索引） -->
+  <scroll-view class="friend-list" scroll-y scroll-into-view="{{scrollToView}}" enhanced show-scrollbar="{{false}}">
+    <!-- 我自己 -->
+    <view class="section-header" id="section-me">我</view>
+    <view class="friend-item" bindtap="viewMyProfile">
+      <image class="friend-avatar" src="{{myAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <text class="friend-name">{{myName || '我的'}}</text>
+      <text class="arrow">></text>
+    </view>
+
+    <!-- 好友分组 -->
+    <block wx:for="{{groupedFriends}}" wx:key="letter">
+      <view class="section-header" id="section-{{item.letter}}">{{item.letter}}</view>
+      <view class="friend-item" wx:for="{{item.list}}" wx:for-item="friend" wx:key="_id"
+            bindtap="openChat" data-friend-id="{{friend.friendId}}"
+            data-friend-name="{{friend.nickName || friend.name}}"
+            data-avatar="{{friend.avatar}}">
+        <image class="friend-avatar" src="{{friend.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="friend-info">
+          <text class="friend-name">{{friend.nickName || friend.name}}</text>
+          <text class="friend-signature" wx:if="{{friend.signature}}">{{friend.signature}}</text>
+        </view>
+        <text class="arrow"></text>
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{friends.length === 0 && !loading}}">
+      <image class="empty-svg" src="/images/icons/group.svg" mode="aspectFit"/>
+      <text class="empty-text">暂无好友</text>
+      <text class="empty-tip">点击上方搜索添加好友</text>
+    </view>
+  </scroll-view>
+
+  <!-- 右侧字母索引 -->
+  <view class="index-bar" catchtouchstart="onIndexTouchStart" catchtouchmove="onIndexTouchMove" catchtouchend="onIndexTouchEnd">
+    <view class="index-item {{currentLetter === item ? 'active' : ''}}"
+          wx:for="{{letters}}" wx:key="*this"
+          data-letter="{{item}}">
+      {{item}}
+    </view>
+  </view>
+</view>

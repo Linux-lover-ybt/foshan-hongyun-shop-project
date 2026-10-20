@@ -1,0 +1,84 @@
+<!--subpackage_forum/my-posts/my-posts.wxml-->
+<view class="page">
+  <!-- 统计概览 -->
+  <view class="stats-bar">
+    <view class="stat-item">
+      <text class="stat-value">{{topicCount}}</text>
+      <text class="stat-label">话题</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{videoCount}}</text>
+      <text class="stat-label">视频</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{totalLikes}}</text>
+      <text class="stat-label">获赞</text>
+    </view>
+  </view>
+
+  <!-- Tab 切换 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'topic' ? 'active' : ''}}" bindtap="switchTab" data-tab="topic">我的话题</view>
+    <view class="tab {{activeTab === 'video' ? 'active' : ''}}" bindtap="switchTab" data-tab="video">我的视频</view>
+  </view>
+
+  <!-- 话题列表 -->
+  <view class="list" wx:if="{{activeTab === 'topic'}}">
+    <view class="item" wx:for="{{topics}}" wx:key="_id">
+      <view class="item-body" bindtap="goToDetail" data-id="{{item._id}}">
+        <view class="item-cover" wx:if="{{item.images && item.images.length > 0}}">
+          <image class="cover-img" src="{{item.images[0]}}" mode="aspectFill"></image>
+          <view class="cover-badge" wx:if="{{item.images.length > 1}}">{{item.images.length}}图</view>
+        </view>
+        <view class="item-info">
+          <view class="item-content">{{item.content}}</view>
+          <view class="item-meta">
+            <text class="meta-tag" wx:if="{{item.topicTag}}">#{{item.topicTag}}</text>
+            <text class="meta-stats">{{item.likes || 0}}赞 · {{item.commentsCount || 0}}评 · {{item.views || 0}}阅</text>
+          </view>
+          <view class="item-time">{{item.createTimeStr}}</view>
+        </view>
+      </view>
+      <view class="item-action" catchtap="deleteTopic" data-id="{{item._id}}" data-index="{{index}}">
+        <text>删除</text>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{topics.length === 0 && !loading}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无发表的话题</text>
+    </view>
+  </view>
+
+  <!-- 视频列表 -->
+  <view class="list" wx:if="{{activeTab === 'video'}}">
+    <view class="item" wx:for="{{videos}}" wx:key="_id">
+      <view class="item-body">
+        <view class="item-cover">
+          <image class="cover-img" src="{{item.fileID}}" mode="aspectFill"></image>
+          <view class="cover-play">▶</view>
+        </view>
+        <view class="item-info">
+          <view class="item-title">{{item.title}}</view>
+          <view class="item-content">{{item.description}}</view>
+          <view class="item-meta">
+            <text class="meta-tag" wx:if="{{item.category}}">#{{item.category}}</text>
+            <text class="meta-stats">{{item.views || 0}}次观看</text>
+          </view>
+          <view class="item-time">{{item.createTimeStr}}</view>
+        </view>
+      </view>
+      <view class="item-action" catchtap="deleteVideo" data-id="{{item._id}}" data-index="{{index}}">
+        <text>删除</text>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{videos.length === 0 && !loading}}">
+      <text class="empty-icon">🎬</text>
+      <text class="empty-text">暂无上传的视频</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-tip" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
